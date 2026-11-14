@@ -1,0 +1,29 @@
+Platform Information
+   UUID: 0x4d 0x38 0xfa 0x0 0x64 0x0 0x11 0xec 0x80 0x0 0x3c 0xec 0xef 0x2c 0xe9 0x78
+   Product Name: Super Server
+   Vendor Name: Supermicro
+   Serial Number: 0123456789
+   Enclosure Serial Number: 0123456789
+   BIOS Asset Tag: Default string
+   IPMI Supported: true
+  BIOS Info (Type 0): #0
+    Size: 0x0001a
+    Vendor: "American Megatrends Inc."
+    Version: "1.2"
+    Date: "07/26/2021"
+    Start Address: 0xf0000
+    ROM Size: 16384 kB
+    Features: 0x0d0300000001378b9880
+      PCI supported
+   CPU Packages: 1
+   CPU Cores: 4
+   CPU Threads: 8
+   Hyperthreading Active: true
+   Hyperthreading Supported: true
+   Hyperthreading Enabled: true
+   HV Support: 3
+2026-10-27T17:38:40Z In(182) vmkernel: TSC: 320412 cpu0:1)BootConfig: 783: noIOMMU = FALSE (0)
+2026-10-27T17:38:40Z In(182) vmkernel: TSC: 322610 cpu0:1)BootConfig: 783: amdIommuMmioEventHandler = TRUE (1)
+2026-10-27T17:38:40Z In(182) vmkernel: TSC: 325064 cpu0:1)BootConfig: 783: iommuMapReservedMem = 3 (3)
+2026-10-27T17:38:40Z In(182) vmkernel: 0:00:00:00.023 cpu0:1)VMK early init (7/19): IOMMU_EarlyInit
+2026-10-27T17:38:40Z In(182) vmkernel: 0:00:00:00.023 cpu0:1)SysInitTable: 113: Finished sysInit step: IOMMU_EarlyInit in 506 us.

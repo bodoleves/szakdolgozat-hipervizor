@@ -1,0 +1,103 @@
+uuid ( RO)                                  : 4a99a1b2-aecf-915e-d084-fbdd5e1e8700
+                            name-label ( RW): ops-u1
+                      name-description ( RW): Installed via xe CLI
+                          user-version ( RW): 1
+                         is-a-template ( RW): false
+                   is-default-template ( RW): false
+                         is-a-snapshot ( RO): false
+                           snapshot-of ( RO): <not in database>
+                             snapshots ( RO): 
+                         snapshot-time ( RO): 19700101T00:00:00Z
+                         snapshot-info ( RO): 
+                                parent ( RO): <not in database>
+                              children ( RO): 
+                     is-control-domain ( RO): false
+                           power-state ( RO): running
+                         memory-actual ( RO): 8589922304
+                         memory-target ( RO): 8589934592
+                       memory-overhead ( RO): 73400320
+                     memory-static-max ( RW): 8589934592
+                    memory-dynamic-max ( RW): 8589934592
+                    memory-dynamic-min ( RW): 8589934592
+                     memory-static-min ( RW): 8589934592
+                      suspend-VDI-uuid ( RW): <not in database>
+                       suspend-SR-uuid ( RW): 09a31b92-c866-c7f5-c50e-7d129a6a661b
+                          VCPUs-params (MRW): 
+                             VCPUs-max ( RW): 4
+                      VCPUs-at-startup ( RW): 4
+                actions-after-shutdown ( RW): Destroy
+              actions-after-softreboot ( RW): Soft reboot
+                  actions-after-reboot ( RW): Restart
+                   actions-after-crash ( RW): Restart
+                         console-uuids (SRO): ea09509c-db70-a748-8331-2803998f7216
+                                   hvm ( RO): true
+                              platform (MRW): timeoffset: 3; secureboot: true; device-model: qemu-upstream-compat; cores-per-socket: 4; vga: std; videoram: 8; viridian: false; device_id: 0001; nx: true; acpi: 1; apic: true; pae: true; hpet: true
+                    allowed-operations (SRO): sysprep; metadata_export; changing_VCPUs_live; changing_dynamic_range; migrate_send; pool_migrate; suspend; hard_reboot; hard_shutdown; clean_reboot; clean_shutdown; pause; checkpoint; snapshot
+                    current-operations (SRO): 
+                    blocked-operations (MRW): 
+                   allowed-VBD-devices (SRO): 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15; 16; 17; 18; 19; 20; 21; 22; 23; 24; 25; 26; 27; 28; 29; 30; 31; 32; 33; 34; 35; 36; 37; 38; 39; 40; 41; 42; 43; 44; 45; 46; 47; 48; 49; 50; 51; 52; 53; 54; 55; 56; 57; 58; 59; 60; 61; 62; 63; 64; 65; 66; 67; 68; 69; 70; 71; 72; 73; 74; 75; 76; 77; 78; 79; 80; 81; 82; 83; 84; 85; 86; 87; 88; 89; 90; 91; 92; 93; 94; 95; 96; 97; 98; 99; 100; 101; 102; 103; 104; 105; 106; 107; 108; 109; 110; 111; 112; 113; 114; 115; 116; 117; 118; 119; 120; 121; 122; 123; 124; 125; 126; 127; 128; 129; 130; 131; 132; 133; 134; 135; 136; 137; 138; 139; 140; 141; 142; 143; 144; 145; 146; 147; 148; 149; 150; 151; 152; 153; 154; 155; 156; 157; 158; 159; 160; 161; 162; 163; 164; 165; 166; 167; 168; 169; 170; 171; 172; 173; 174; 175; 176; 177; 178; 179; 180; 181; 182; 183; 184; 185; 186; 187; 188; 189; 190; 191; 192; 193; 194; 195; 196; 197; 198; 199; 200; 201; 202; 203; 204; 205; 206; 207; 208; 209; 210; 211; 212; 213; 214; 215; 216; 217; 218; 219; 220; 221; 222; 223; 224; 225; 226; 227; 228; 229; 230; 231; 232; 233; 234; 235; 236; 237; 238; 239; 240; 241; 242; 243; 244; 245; 246; 247; 248; 249; 250; 251; 252; 253; 254
+                   allowed-VIF-devices (SRO): 1; 2; 3; 4; 5; 6; 7; 8; 9; 10; 11; 12; 13; 14; 15
+                        possible-hosts ( RO): 02c34c29-2864-42f0-8092-79a482c37682
+                           domain-type ( RW): hvm
+                   current-domain-type ( RO): hvm
+                       HVM-boot-policy ( RW): BIOS order
+                       HVM-boot-params (MRW): order: c; firmware: bios
+                 HVM-shadow-multiplier ( RW): 1.000
+                             PV-kernel ( RW): 
+                            PV-ramdisk ( RW): 
+                               PV-args ( RW): 
+                        PV-legacy-args ( RW): 
+                         PV-bootloader ( RW): 
+                    PV-bootloader-args ( RW): 
+                   last-boot-CPU-flags ( RO): vendor: GenuineIntel; features: 1fcbfbff-f7fa3203-2c100800-00000121-0000000f-009c07ab-00000000-00000000-00101000-bc000400-00000000-00000000-00000000-00000000-00000000-00000000-0c0a0023-00000000-00000000-00000000-00000000-00000000-00000000
+                      last-boot-record ( RO): ''
+                           resident-on ( RO): 02c34c29-2864-42f0-8092-79a482c37682
+                              affinity ( RW): <not in database>
+                          other-config (MRW): base_template_name: Debian Bookworm 12; import_task: OpaqueRef:cbc8587d-acb6-b396-0f00-b15b7ba52724; mac_seed: 254529f2-77e0-c5ca-c222-19aa914dca31; linux_template: true; install-methods: cdrom,nfs,http,ftp
+                                dom-id ( RO): 6
+                       recommendations ( RO): <restrictions><restriction field="memory-static-max" max="1649267441664"/><restriction field="vcpus-max" max="64"/><restriction field="has-vendor-device" value="false"/><restriction field="allow-gpu-passthrough" value="1"/><restriction field="allow-vgpu" value="1"/><restriction field="allow-network-sriov" value="1"/><restriction field="supports-bios" value="yes"/><restriction field="supports-uefi" value="yes"/><restriction field="supports-secure-boot" value="yes"/><restriction max="255" property="number-of-vbds"/><restriction max="7" property="number-of-vifs"/></restrictions>
+                         xenstore-data (MRW): vm-data/mmio-hole-size: 268435456; vm-data: 
+            ha-always-run ( RW) [DEPRECATED]: false
+                   ha-restart-priority ( RW): 
+                                 blobs ( RO): 
+                            start-time ( RO): 20261023T19:27:45Z
+                          install-time ( RO): 20261023T19:27:12Z
+                          VCPUs-number ( RO): 4
+                     VCPUs-utilisation (MRO): 0: 0.014; 1: 0.010; 2: 0.002; 3: 0.004
+                            os-version (MRO): 
+                          netbios-name (MRO): 
+                    PV-drivers-version (MRO): 
+    PV-drivers-up-to-date ( RO) [DEPRECATED]: true
+                                memory (MRO): 
+                                 disks (MRO): 
+                                  VBDs (SRO): a89b5a4a-595a-48a3-3f8a-427219b49b8a; 463895f1-b707-5b76-d68c-36786e936201
+                              networks (MRO): 
+                              services (MRO): 
+                   PV-drivers-detected ( RO): true
+                                 other (MRO): platform-feature-xs_reset_watches: 1; platform-feature-multiprocessor-suspend: 1; has-vendor-device: 0; feature-vcpu-hotplug: 1; feature-suspend: 1; feature-reboot: 1; feature-poweroff: 1
+                                  live ( RO): true
+            guest-metrics-last-updated ( RO): 20261023T19:27:50Z
+                   can-use-hotplug-vbd ( RO): unspecified
+                   can-use-hotplug-vif ( RO): unspecified
+              cooperative ( RO) [DEPRECATED]: true
+                                  tags (SRW): 
+                             appliance ( RW): <not in database>
+                                groups ( RW): 
+                     snapshot-schedule ( RW): <not in database>
+                      is-vmss-snapshot ( RO): false
+                           start-delay ( RW): 0
+                        shutdown-delay ( RW): 0
+                                 order ( RW): 0
+                               version ( RO): 0
+                         generation-id ( RO): 
+             hardware-platform-version ( RO): 0
+                     has-vendor-device ( RW): false
+                       requires-reboot ( RO): false
+                       reference-label ( RO): debian-12
+                          bios-strings (MRO): bios-vendor: Xen; bios-version: ; system-manufacturer: Xen; system-product-name: HVM domU; system-version: ; system-serial-number: ; baseboard-manufacturer: ; baseboard-product-name: ; baseboard-version: ; baseboard-serial-number: ; baseboard-asset-tag: ; baseboard-location-in-chassis: ; enclosure-asset-tag: ; hp-rombios: ; oem-1: Xen; oem-2: MS_VM_CERT/SHA1/bdbeb6e0a816d43fa6d3fe8aaef04c2bad9d3e3d
+                     pending-guidances ( RO): 
+                                 vtpms ( RO): 
+         pending-guidances-recommended ( RO): 
+                pending-guidances-full ( RO): 
+
+

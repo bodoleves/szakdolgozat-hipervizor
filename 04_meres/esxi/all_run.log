@@ -1,0 +1,55 @@
+[19:33:33] bench: VM létrehozása
+[19:33:50] vmid=3
+[19:34:44] vendég IP: 192.168.1.48 – a mérés a vendégben fut (kb. 45 perc), várakozás az eredményre
+platform,ismetles,sorrend,teszt,ertek,mertekegyseg,iops,atlag_kesleltetes_us,idopont
+esxi,1,1,cpu4,2161.83,esemeny/s,,,2026-10-27T18:42:11+00:00
+esxi,1,2,mem_write,25155.82,MiB/s,,,2026-10-27T18:42:41+00:00
+esxi,1,3,cpu1,550.57,esemeny/s,,,2026-10-27T18:43:11+00:00
+esxi,1,4,seq_read,536.5,MiB/s,536.0,59658.2,2026-10-27T18:44:21+00:00
+esxi,1,5,seq_write,476.42,MiB/s,475.9,67129.8,2026-10-27T18:45:32+00:00
+esxi,1,6,mem_read,29997.52,MiB/s,,,2026-10-27T18:46:02+00:00
+esxi,1,7,rand_write,334.93,MiB/s,85741.9,370.0,2026-10-27T18:47:12+00:00
+esxi,1,8,rand_read,376.59,MiB/s,96406.3,328.9,2026-10-27T18:48:22+00:00
+esxi,2,1,mem_write,25150.02,MiB/s,,,2026-10-27T18:48:52+00:00
+esxi,2,2,rand_write,334.89,MiB/s,85730.6,370.2,2026-10-27T18:50:03+00:00
+esxi,2,3,cpu1,550.71,esemeny/s,,,2026-10-27T18:50:33+00:00
+esxi,2,4,seq_write,476.18,MiB/s,475.7,67163.8,2026-10-27T18:51:43+00:00
+esxi,2,5,cpu4,2161.97,esemeny/s,,,2026-10-27T18:52:13+00:00
+esxi,2,6,mem_read,29711.09,MiB/s,,,2026-10-27T18:52:43+00:00
+esxi,2,7,rand_read,375.99,MiB/s,96253.5,329.4,2026-10-27T18:53:54+00:00
+esxi,2,8,seq_read,536.82,MiB/s,536.3,59622.0,2026-10-27T18:55:04+00:00
+esxi,3,1,mem_read,29704.85,MiB/s,,,2026-10-27T18:55:34+00:00
+esxi,3,2,seq_read,536.89,MiB/s,536.4,59615.1,2026-10-27T18:56:44+00:00
+esxi,3,3,cpu1,550.39,esemeny/s,,,2026-10-27T18:57:14+00:00
+esxi,3,4,rand_write,334.78,MiB/s,85702.4,370.2,2026-10-27T18:58:25+00:00
+esxi,3,5,rand_read,375.92,MiB/s,96235.9,329.6,2026-10-27T18:59:35+00:00
+esxi,3,6,mem_write,25145.72,MiB/s,,,2026-10-27T19:00:05+00:00
+esxi,3,7,seq_write,476.59,MiB/s,476.1,67105.5,2026-10-27T19:01:15+00:00
+esxi,3,8,cpu4,2159.06,esemeny/s,,,2026-10-27T19:01:45+00:00
+esxi,4,1,cpu4,2158.27,esemeny/s,,,2026-10-27T19:02:15+00:00
+esxi,4,2,seq_write,475.57,MiB/s,475.1,67250.5,2026-10-27T19:03:26+00:00
+esxi,4,3,rand_write,334.9,MiB/s,85733.6,370.0,2026-10-27T19:04:36+00:00
+esxi,4,4,mem_write,25117.39,MiB/s,,,2026-10-27T19:05:06+00:00
+esxi,4,5,mem_read,29692.10,MiB/s,,,2026-10-27T19:05:36+00:00
+esxi,4,6,seq_read,536.31,MiB/s,535.8,59679.3,2026-10-27T19:06:46+00:00
+esxi,4,7,cpu1,549.63,esemeny/s,,,2026-10-27T19:07:16+00:00
+esxi,4,8,rand_read,375.78,MiB/s,96198.5,329.6,2026-10-27T19:08:27+00:00
+esxi,5,1,cpu4,2160.03,esemeny/s,,,2026-10-27T19:08:57+00:00
+esxi,5,2,rand_read,376.03,MiB/s,96262.8,329.4,2026-10-27T19:10:07+00:00
+esxi,5,3,seq_read,535.99,MiB/s,535.5,59714.5,2026-10-27T19:11:17+00:00
+esxi,5,4,mem_read,30016.16,MiB/s,,,2026-10-27T19:11:47+00:00
+esxi,5,5,seq_write,476.76,MiB/s,476.2,67083.1,2026-10-27T19:12:58+00:00
+esxi,5,6,mem_write,25153.23,MiB/s,,,2026-10-27T19:13:28+00:00
+esxi,5,7,cpu1,550.54,esemeny/s,,,2026-10-27T19:13:58+00:00
+esxi,5,8,rand_write,335.22,MiB/s,85815.5,369.7,2026-10-27T19:15:08+00:00
+[20:15:39] bench kész: /Users/leventebodo/Documents/szakdolgozatv2/04_meres/esxi/esxi_bench  (a bench-debian12 VM leállítva megmarad)
+== U1: VM létrehozása ==
+[U1] letrehozas_es_lemezimport: 14.7 s  vmkfstools klon a bazislemezbol + bovites + vmx + regisztracio
+[U1] inditas_hasznalhatoig: 19.2 s  VMware Tools fut es IP jelentve: igen (cloud-init csomagtelepites is)
+[U1] osszesen: 34.0 s  
+== U2: Erőforrás-módosítás és visszaállítás ==
+[U2] modositas_2vcpu_4GB: 47.7 s  vendegben: vcpu=2 mem_mb=3927
+[U2] visszaallitas_4vcpu_8GB: 45.0 s  vendegben: vcpu=4 mem_mb=7953
+== U3: Mentés (csendesített pillanatkép + lemezklón) és helyreállítás ==
+[U3] mentes_snapshot_mod: 18.2 s  csendesitett pillanatkep 5.1 s + vmkfstools klon 11.9 s + torles; meret: 2.7G (thin); VM futott kozben
+[U3] visszaallitas_uj_vm: 14.3 s  vmkfstools klon a mentesbol + vmx + regisztracio -> ops-u3-restore

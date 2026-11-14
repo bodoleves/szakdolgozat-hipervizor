@@ -1,0 +1,9 @@
+feladat,lepes,ido_s,megjegyzes
+U1,letrehozas_es_lemezimport,9.7,qm create + import + resize + cloud-init
+U1,inditas_hasznalhatoig,45.0,guest agent valaszol: igen (cloud-init csomagtelepites is)
+U1,osszesen,54.7,
+U2,modositas_2vcpu_4GB,16.0,vendegben: vcpu=2 mem_mb=3927
+U2,visszaallitas_4vcpu_8GB,16.2,vendegben: vcpu=4 mem_mb=7953
+U3,mentes_snapshot_mod,15.1,fajl: vzdump-qemu-9002-2026_10_04-18_56_10.vma.zst, meret: 356M, VM futott kozben
+U3,visszaallitas_uj_vmid,10.6,qmrestore -> 9003
+U3,visszaallitott_vm_hasznalhato,11.6,agent: igen, jelzofajl egyezik: igen

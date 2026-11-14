@@ -1,0 +1,82 @@
+2026-10-04T16:14:04+02:00
+proxmox-ve: 9.0.0 (running kernel: 6.14.11-1-pve)
+pve-manager: 9.0.6 (running version: 9.0.6/49c767b70aeb6648)
+proxmox-kernel-helper: 9.0.4
+proxmox-kernel-6.14.11-1-pve-signed: 6.14.11-1
+proxmox-kernel-6.14: 6.14.11-1
+CPU(s):                                  8
+Model name:                              Intel(R) Core(TM) i3-10105 CPU @ 3.70GHz
+Thread(s) per core:                      2
+Socket(s):                               1
+CPU(s) scaling MHz:                      67%
+               total        used        free      shared  buff/cache   available
+Mem:            23Gi       1.1Gi        22Gi        35Mi       283Mi        22Gi
+Swap:          8.0Gi       610Mi       7.4Gi
+NAME                             SIZE TYPE MODEL                     ROTA
+sda                            953.9G disk Samsung SSD 860 PRO 1TB      0
+|-sda1                          1007K part                              0
+|-sda2                             1G part                              0
+`-sda3                         952.9G part                              0
+  |-pve-swap                       8G lvm                               0
+  |-pve-root                      96G lvm                               0
+  |-pve-data_tmeta               8.3G lvm                               0
+  | `-pve-data-tpool           816.2G lvm                               0
+  |   |-pve-data               816.2G lvm                               0
+  |   |-pve-vm--100--disk--0       3G lvm                               0
+  |   |-pve-vm--101--disk--0       4G lvm                               0
+  |   |-pve-vm--102--disk--0       4G lvm                               0
+  |   |-pve-vm--103--disk--0       4G lvm                               0
+  |   |-pve-vm--104--disk--0       8G lvm                               0
+  |   |-pve-vm--105--disk--0       8G lvm                               0
+  |   |-pve-vm--106--disk--1     100G lvm                               0
+  |   |-pve-vm--106--disk--0       4M lvm                               0
+  |   |-pve-vm--107--disk--1       8G lvm                               0
+  |   |-pve-vm--107--disk--0       4M lvm                               0
+  |   |-pve-vm--108--disk--0       4G lvm                               0
+  |   |-pve-vm--109--disk--0      17G lvm                               0
+  |   |-pve-vm--110--disk--0       4G lvm                               0
+  |   |-pve-vm--111--disk--0     200G lvm                               0
+  |   |-pve-vm--201--cloudinit     4M lvm                               0
+  |   |-pve-vm--201--disk--0      20G lvm                               0
+  |   |-pve-vm--202--cloudinit     4M lvm                               0
+  |   |-pve-vm--202--disk--0      20G lvm                               0
+  |   |-pve-vm--203--cloudinit     4M lvm                               0
+  |   |-pve-vm--203--disk--0      20G lvm                               0
+  |   |-pve-vm--204--cloudinit     4M lvm                               0
+  |   |-pve-vm--204--disk--0      20G lvm                               0
+  |   |-pve-vm--205--cloudinit     4M lvm                               0
+  |   `-pve-vm--205--disk--0      12G lvm                               0
+  `-pve-data_tdata             816.2G lvm                               0
+    `-pve-data-tpool           816.2G lvm                               0
+      |-pve-data               816.2G lvm                               0
+      |-pve-vm--100--disk--0       3G lvm                               0
+      |-pve-vm--101--disk--0       4G lvm                               0
+      |-pve-vm--102--disk--0       4G lvm                               0
+      |-pve-vm--103--disk--0       4G lvm                               0
+      |-pve-vm--104--disk--0       8G lvm                               0
+      |-pve-vm--105--disk--0       8G lvm                               0
+      |-pve-vm--106--disk--1     100G lvm                               0
+      |-pve-vm--106--disk--0       4M lvm                               0
+      |-pve-vm--107--disk--1       8G lvm                               0
+      |-pve-vm--107--disk--0       4M lvm                               0
+      |-pve-vm--108--disk--0       4G lvm                               0
+      |-pve-vm--109--disk--0      17G lvm                               0
+      |-pve-vm--110--disk--0       4G lvm                               0
+      |-pve-vm--111--disk--0     200G lvm                               0
+      |-pve-vm--201--cloudinit     4M lvm                               0
+      |-pve-vm--201--disk--0      20G lvm                               0
+      |-pve-vm--202--cloudinit     4M lvm                               0
+      |-pve-vm--202--disk--0      20G lvm                               0
+      |-pve-vm--203--cloudinit     4M lvm                               0
+      |-pve-vm--203--disk--0      20G lvm                               0
+      |-pve-vm--204--cloudinit     4M lvm                               0
+      |-pve-vm--204--disk--0      20G lvm                               0
+      |-pve-vm--205--cloudinit     4M lvm                               0
+      `-pve-vm--205--disk--0      12G lvm                               0
+sdb                            238.5G disk Samsung SSD 850 PRO 256GB    0
+nvme0n1                        476.9G disk Samsung SSD 970 PRO 512GB    0
+Name             Type     Status           Total            Used       Available        %
+local             dir     active        98497780        10964572        82483660   11.13%
+local-lvm     lvmthin     active       855855104       152256623       703598480   17.79%
+openclaw          lvm     active       500105216       478150656        21954560   95.61%
+pve_ai            lvm     active       250056704               0       250056704    0.00%

@@ -1,0 +1,20 @@
+platform: xcpng
+inditas: 2026-10-23T16:23:07+00:00
+ismetlesek: 5
+kernel: 6.1.0-54-cloud-amd64
+os: Debian GNU/Linux 12 (bookworm)
+sysbench: sysbench 1.0.20
+fio: fio-3.33
+cpu:  Intel(R) Core(TM) i3-10105 CPU @ 3.70GHz
+vcpu: 4
+ram: 7.8Gi
+lemezek:
+NAME      SIZE TYPE MODEL ROTA
+xvda       32G disk          0
+├─xvda1  31.9G part          0
+├─xvda14    3M part          0
+└─xvda15  124M part          0
+xvdb       16M disk          0
+virtualizacio: xen
+parameterek: CPU_TIME=30 FIO_RUNTIME=60 FIO_RAMP=10 FIO_SIZE=4G
+befejezes: 2026-10-23T17:03:31+00:00

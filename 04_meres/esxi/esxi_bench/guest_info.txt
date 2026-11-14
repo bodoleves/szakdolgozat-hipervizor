@@ -1,0 +1,165 @@
+Guest information:
+
+(vim.vm.GuestInfo) {
+   toolsStatus = "toolsOk", 
+   toolsVersionStatus = "guestToolsUnmanaged", 
+   toolsVersionStatus2 = "guestToolsUnmanaged", 
+   toolsRunningStatus = "guestToolsRunning", 
+   toolsVersion = "12352", 
+   toolsInstallType = "guestToolsTypeOpenVMTools", 
+   toolsUpdateStatus = (vim.vm.GuestInfo.ToolsUpdateStatus) null, 
+   guestId = "debian12_64Guest", 
+   guestFamily = "linuxGuest", 
+   guestFullName = "Debian GNU/Linux 12 (64-bit)", 
+   guestDetailedData = "architecture='X86' bitness='64' distroAddlVersion='12 (bookworm)' distroName='Debian GNU/Linux' distroVersion='12' familyName='Linux' kernelVersion='6.1.0-54-cloud-amd64' prettyName='Debian GNU/Linux 12 (bookworm)'", 
+   hostName = "bench-debian12", 
+   ipAddress = "192.168.1.48", 
+   net = (vim.vm.GuestInfo.NicInfo) [
+      (vim.vm.GuestInfo.NicInfo) {
+         network = "VM Network", 
+         ipAddress = (string) [
+            "192.168.1.48", 
+            "fe80::20c:29ff:fe6d:e079"
+         ], 
+         macAddress = "00:0c:29:6d:e0:79", 
+         connected = true, 
+         deviceConfigId = 4000, 
+         dnsConfig = (vim.net.DnsConfigInfo) null, 
+         ipConfig = (vim.net.IpConfigInfo) {
+            ipAddress = (vim.net.IpConfigInfo.IpAddress) [
+               (vim.net.IpConfigInfo.IpAddress) {
+                  ipAddress = "192.168.1.48", 
+                  prefixLength = 24, 
+                  origin = <unset>, 
+                  state = "preferred", 
+                  lifetime = <unset>
+               }, 
+               (vim.net.IpConfigInfo.IpAddress) {
+                  ipAddress = "fe80::20c:29ff:fe6d:e079", 
+                  prefixLength = 64, 
+                  origin = <unset>, 
+                  state = "unknown", 
+                  lifetime = <unset>
+               }
+            ], 
+            dhcp = (vim.net.DhcpConfigInfo) null, 
+            autoConfigurationEnabled = <unset>
+         }, 
+         netBIOSConfig = (vim.net.NetBIOSConfigInfo) null
+      }
+   ], 
+   ipStack = (vim.vm.GuestInfo.StackInfo) [
+      (vim.vm.GuestInfo.StackInfo) {
+         dnsConfig = (vim.net.DnsConfigInfo) {
+            dhcp = false, 
+            hostName = "bench-debian12", 
+            domainName = ".", 
+            ipAddress = (string) [
+               "192.168.1.1"
+            ], 
+            searchDomain = (string) [
+               "."
+            ]
+         }, 
+         ipRouteConfig = (vim.net.IpRouteConfigInfo) {
+            ipRoute = (vim.net.IpRouteConfigInfo.IpRoute) [
+               (vim.net.IpRouteConfigInfo.IpRoute) {
+                  network = "0.0.0.0", 
+                  prefixLength = 0, 
+                  gateway = (vim.net.IpRouteConfigInfo.Gateway) {
+                     ipAddress = "192.168.1.1", 
+                     device = "0"
+                  }
+               }, 
+               (vim.net.IpRouteConfigInfo.IpRoute) {
+                  network = "192.168.1.0", 
+                  prefixLength = 24, 
+                  gateway = (vim.net.IpRouteConfigInfo.Gateway) {
+                     ipAddress = <unset>, 
+                     device = "0"
+                  }
+               }, 
+               (vim.net.IpRouteConfigInfo.IpRoute) {
+                  network = "192.168.1.1", 
+                  prefixLength = 32, 
+                  gateway = (vim.net.IpRouteConfigInfo.Gateway) {
+                     ipAddress = <unset>, 
+                     device = "0"
+                  }
+               }, 
+               (vim.net.IpRouteConfigInfo.IpRoute) {
+                  network = "fe80::", 
+                  prefixLength = 64, 
+                  gateway = (vim.net.IpRouteConfigInfo.Gateway) {
+                     ipAddress = <unset>, 
+                     device = "0"
+                  }
+               }, 
+               (vim.net.IpRouteConfigInfo.IpRoute) {
+                  network = "fe80::20c:29ff:fe6d:e079", 
+                  prefixLength = 128, 
+                  gateway = (vim.net.IpRouteConfigInfo.Gateway) {
+                     ipAddress = <unset>, 
+                     device = "0"
+                  }
+               }, 
+               (vim.net.IpRouteConfigInfo.IpRoute) {
+                  network = "ff00::", 
+                  prefixLength = 8, 
+                  gateway = (vim.net.IpRouteConfigInfo.Gateway) {
+                     ipAddress = <unset>, 
+                     device = "0"
+                  }
+               }
+            ]
+         }, 
+         ipStackConfig = <unset>, 
+         dhcpConfig = (vim.net.DhcpConfigInfo) null
+      }
+   ], 
+   disk = (vim.vm.GuestInfo.DiskInfo) [
+      (vim.vm.GuestInfo.DiskInfo) {
+         diskPath = "/", 
+         capacity = 33603391488, 
+         freeSpace = 31144857600, 
+         filesystemType = "ext4", 
+         mappings = (vim.vm.GuestInfo.VirtualDiskMapping) [
+            (vim.vm.GuestInfo.VirtualDiskMapping) {
+               key = 2000
+            }
+         ]
+      }, 
+      (vim.vm.GuestInfo.DiskInfo) {
+         diskPath = "/boot/efi", 
+         capacity = 129718272, 
+         freeSpace = 117364736, 
+         filesystemType = "vfat", 
+         mappings = (vim.vm.GuestInfo.VirtualDiskMapping) [
+            (vim.vm.GuestInfo.VirtualDiskMapping) {
+               key = 2000
+            }
+         ]
+      }
+   ], 
+   screen = (vim.vm.GuestInfo.ScreenInfo) {
+      width = 640, 
+      height = 480
+   }, 
+   guestState = "running", 
+   powerPolicy = (vim.vm.PowerPolicy) null, 
+   appHeartbeatStatus = "appStatusGray", 
+   guestKernelCrashed = false, 
+   appState = "none", 
+   guestOperationsReady = true, 
+   interactiveGuestOperationsReady = false, 
+   guestStateChangeSupported = true, 
+   generationInfo = <unset>, 
+   hwVersion = "vmx-21", 
+   toolsHealthEvents = <unset>, 
+   customizationInfo = (vim.vm.GuestInfo.CustomizationInfo) {
+      customizationStatus = "TOOLSDEPLOYPKG_IDLE", 
+      startTime = <unset>, 
+      endTime = <unset>, 
+      errorMsg = <unset>
+   }
+}

@@ -1,0 +1,9 @@
+feladat,lepes,ido_s,megjegyzes
+U1,letrehozas_es_lemezimport,31.9,vm-install + vdi-import + seed-lemez
+U1,inditas_hasznalhatoig,21.1,vendeg jelzett: igen; agent IP: nem (cloud-init csomagtelepites is)
+U1,osszesen,53.0,
+U2,modositas_2vcpu_4GB,605.6,vendegben: vcpu= mem_mb=
+U2,visszaallitas_4vcpu_8GB,607.3,vendegben: vcpu= mem_mb=
+U3,mentes_snapshot_mod,17.7,pillanatkep 1.4 s + export 15.9 s + torles; meret: 311M (zstd); VM futott kozben
+U3,visszaallitas_uj_vm,23.4,vm-import -> ops-u3-restore
+U3,visszaallitott_vm_hasznalhato,602.3,vendeg jelzett: nem, jelzofajl egyezik: nem

@@ -1,0 +1,7 @@
+#cloud-config
+package_update: true
+packages: [open-vm-tools]
+ssh_authorized_keys:
+  - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDYMmyOwRb6UK2x9rgU/ORJoWbVZz6eHkAog7fcKU/LntIWcPY2SLaCyCDom8G5zOn1w7mGITaCwTis6F3SOUITKjXjPNQ0cI27+A8gwYcQUygGF32eCL4jbtGyHcYQsrF6ogFG46b3zCeYiZXnEI3wmBxKus86vtc7gLRGM+lEisZo0ZmwovUI3PCFzjMh27qWryYhLhMXolNt6TW5qk4v+XHSeAnaiHS7VC0PmNNv2g5y8kBmJ7qi9SDBlIhQnN3FuSjSiAzRmC9ObhXXPWWlZ6wvXHGbX0RawcvAIdm6VUUJmog4wU6fpozxyJDzgECX7xruYTyoU0Q5nowVvsygLMeJwZWEHJp5WPKcv2gFgs44E+RBL7xdbMAXf542mcy2kBewB5dj8JGwtly+XCojL58YEaQJJfXe1Ij/y+3qkvR9K+mJfIAF/dbL0p9pI8DuPQkaYcdaQFiVZMPpYSNysWrZtE8Zgu+hij6i/EeLOPBM9De9siFSbeKX3uU38NU= szakdolgozat-esxi
+runcmd:
+  - [bash, -c, "systemctl enable --now open-vm-tools > /root/agent.log 2>&1 || true"]

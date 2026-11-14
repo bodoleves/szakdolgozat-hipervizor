@@ -1,0 +1,10 @@
+[20:36:10] SSH-kulcs felrakása az ESXi-re (egyszer kéri a root jelszót)
+[20:36:11] cloud-init seedek készítése (NoCloud ISO)
+scp: dest open "/vmfs/volumes/datastore1/seeds/seed_ops.iso": Failure
+scp: failed to upload file /Users/leventebodo/Documents/szakdolgozatv2/04_meres/esxi/seeds/seed_ops.iso to /vmfs/volumes/datastore1/seeds/
+[20:36:11] setup kész
+== U1: VM létrehozása ==
+[U1] letrehozas_es_lemezimport: 14.7 s  vmkfstools klon a bazislemezbol + bovites + vmx + regisztracio
+[U1] inditas_hasznalhatoig: 20.1 s  VMware Tools fut es IP jelentve: igen (cloud-init csomagtelepites is)
+[U1] osszesen: 34.8 s  
+== U2: Erőforrás-módosítás és visszaállítás ==

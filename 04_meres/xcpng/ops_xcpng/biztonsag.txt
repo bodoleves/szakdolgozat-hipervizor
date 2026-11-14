@@ -1,0 +1,165 @@
+### Verzio
+PRETTY_NAME="XCP-ng 8.3"
+product_version: 8.3.0; product_version_text: 8.3; product_version_text_short: 8.3; platform_name: XCP; platform_version: 3.4.0; product_brand: XCP-ng; xapi: 26.1; build_number: cloud; git_id: 11; hostname: localhost; date: 20260707T07:40:12Z; dbv: 2026.0202; xapi_build: 26.1.11; xen: 4.17.6-9; linux: 4.19.0+1; xencenter_min: 2.21; xencenter_max: 2.21; network_backend: openvswitch; db_schema: 5.795
+
+### Frissitesek (yum)
+frissitheto csomagok: 65
+
+### Csomagforrasok (engedelyezett)
+[base]
+baseurl=https://repo.vates.tech/centos/$releasever/os/$basearch/
+enabled=0
+[updates]
+baseurl=https://repo.vates.tech/centos/$releasever/updates/$basearch/
+enabled=0
+[extras]
+baseurl=https://repo.vates.tech/centos/$releasever/extras/$basearch/
+enabled=0
+[base-source]
+baseurl=https://repo.vates.tech/centos/$releasever/os/Source/
+enabled=0
+[updates-source]
+baseurl=https://repo.vates.tech/centos/$releasever/updates/Source/
+enabled=0
+[extras-source]
+baseurl=https://repo.vates.tech/centos/$releasever/extras/Source/
+enabled=0
+[epel]
+enabled=0
+[epel-debuginfo]
+enabled=0
+[epel-source]
+enabled=0
+[xcp-ng-base]
+baseurl=http://mirrors.xcp-ng.org/8/8.3/base/x86_64/ http://updates.xcp-ng.org/8/8.3/base/x86_64/
+enabled=1
+[xcp-ng-updates]
+baseurl=http://mirrors.xcp-ng.org/8/8.3/updates/x86_64/ http://updates.xcp-ng.org/8/8.3/updates/x86_64/
+enabled=1
+[xcp-ng-candidates]
+baseurl=http://mirrors.xcp-ng.org/8/8.3/candidates/x86_64/ http://updates.xcp-ng.org/8/8.3/candidates/x86_64/
+enabled=0
+[xcp-ng-testing]
+baseurl=http://mirrors.xcp-ng.org/8/8.3/testing/x86_64/ http://updates.xcp-ng.org/8/8.3/testing/x86_64/
+enabled=0
+[xcp-ng-ci]
+baseurl=http://mirrors.xcp-ng.org/8/8.3/ci/x86_64/ http://updates.xcp-ng.org/8/8.3/ci/x86_64/
+enabled=0
+[xcp-ng-incoming]
+baseurl=http://mirrors.xcp-ng.org/8/8.3/incoming/x86_64/ http://updates.xcp-ng.org/8/8.3/incoming/x86_64/
+enabled=0
+[xcp-ng-lab]
+baseurl=http://mirrors.xcp-ng.org/8/8.3/lab/x86_64/ http://updates.xcp-ng.org/8/8.3/lab/x86_64/
+enabled=0
+
+### Halozati interfeszek
+lo               UNKNOWN        127.0.0.1/8 
+eth1             DOWN           
+eth0             UP             
+eth2             UNKNOWN        
+ovs-system       DOWN           
+xenbr0           UNKNOWN        192.168.1.32/24 
+xenbr1           UNKNOWN        
+xenbr2           UNKNOWN        
+vif4.0           UP             
+vif5.0           DOWN           
+device ( RO)        : eth1
+          VLAN ( RO): -1
+    management ( RO): false
+            IP ( RO): 
+
+
+device ( RO)        : eth2
+          VLAN ( RO): -1
+    management ( RO): false
+            IP ( RO): 
+
+
+device ( RO)        : eth0
+          VLAN ( RO): -1
+    management ( RO): true
+            IP ( RO): 192.168.1.32
+
+
+
+### Figyelo szolgaltatasok (TCP/UDP)
+Netid Local Peer
+udp 0.0.0.0:68 users:(("dhclient",pid=1616,fd=6))
+udp 0.0.0.0:111 users:(("rpcbind",pid=1092,fd=6))
+udp 127.0.0.1:323 users:(("chronyd",pid=1134,fd=1))
+udp 0.0.0.0:694 users:(("portreserve",pid=1005,fd=5))
+udp 0.0.0.0:818 users:(("rpcbind",pid=1092,fd=7))
+udp [::]:111 users:(("rpcbind",pid=1092,fd=9))
+udp [::1]:323 users:(("chronyd",pid=1134,fd=2))
+udp [::]:818 users:(("rpcbind",pid=1092,fd=10))
+tcp 127.0.0.1:5900 users:(("vncterm",pid=1196,fd=3))
+tcp 0.0.0.0:111 users:(("rpcbind",pid=1092,fd=8))
+tcp 0.0.0.0:22 users:(("sshd",pid=1062,fd=7))
+tcp 0.0.0.0:10809 users:(("xapi-nbd",pid=3433,fd=6))
+tcp 127.0.0.1:9500 users:(("vncterm",pid=1196,fd=4))
+tcp [::]:111 users:(("rpcbind",pid=1092,fd=11))
+tcp *:80 users:(("xapi",pid=2116,fd=49))
+tcp [::]:22 users:(("sshd",pid=1062,fd=8))
+tcp *:443 users:(("stunnel",pid=3454,fd=9))
+
+### Tuzfal (iptables)
+-P INPUT ACCEPT
+-P FORWARD ACCEPT
+-P OUTPUT ACCEPT
+-N RH-Firewall-1-INPUT
+-N xapi_nbd_input_chain
+-N xapi_nbd_output_chain
+-A INPUT -p tcp -m tcp --dport 10809 -j xapi_nbd_input_chain
+-A INPUT -p gre -j ACCEPT
+-A INPUT -j RH-Firewall-1-INPUT
+-A FORWARD -j RH-Firewall-1-INPUT
+-A OUTPUT -p tcp -m tcp --sport 10809 -j xapi_nbd_output_chain
+-A RH-Firewall-1-INPUT -i lo -j ACCEPT
+-A RH-Firewall-1-INPUT -p icmp -m icmp --icmp-type any -j ACCEPT
+-A RH-Firewall-1-INPUT -i xenapi -p udp -m udp --dport 67 -j ACCEPT
+-A RH-Firewall-1-INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp -m conntrack --ctstate NEW -m udp --dport 694 -j ACCEPT
+-A RH-Firewall-1-INPUT -p tcp -m conntrack --ctstate NEW -m tcp --dport 22 -j ACCEPT
+-A RH-Firewall-1-INPUT -p tcp -m conntrack --ctstate NEW -m tcp --dport 80 -j ACCEPT
+-A RH-Firewall-1-INPUT -p tcp -m conntrack --ctstate NEW -m tcp --dport 443 -j ACCEPT
+-A RH-Firewall-1-INPUT -p tcp -m tcp --dport 21064 -j ACCEPT
+-A RH-Firewall-1-INPUT -p udp -m multiport --dports 5404,5405 -j ACCEPT
+-A RH-Firewall-1-INPUT -j REJECT --reject-with icmp-host-prohibited
+-A xapi_nbd_input_chain -j REJECT --reject-with icmp-port-unreachable
+-A xapi_nbd_output_chain -j REJECT --reject-with icmp-port-unreachable
+
+### Kulso hitelesites
+external-auth-type: 
+
+### Felhasznalok / RBAC alanyok
+
+### Szerepkorok
+
+### Ketfaktoros azonositas
+A XAPI nem tamogat beepitett 2FA-t (Xen Orchestra szintjen allithato).
+
+### SSH beallitasok
+port 22
+permitrootlogin yes
+pubkeyauthentication yes
+passwordauthentication yes
+
+### XAPI TLS tanusitvany
+subject=CN = 192.168.1.32
+issuer=CN = 192.168.1.32
+notAfter=Oct 20 16:10:49 2036 GMT
+type ( RO)         : host_internal
+         name ( RO): 
+    not-after ( RO): 20361020T16:10:47Z
+
+
+type ( RO)         : host
+         name ( RO): 
+    not-after ( RO): 20361020T16:10:49Z
+
+
+
+### Naplozas
+remote syslog: 
+/dev/sda5       3.9G  5.9M  3.7G   1% /var/log
+#*.* @@remote-host:514

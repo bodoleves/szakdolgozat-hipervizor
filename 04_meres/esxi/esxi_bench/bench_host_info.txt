@@ -1,0 +1,70 @@
+2026-10-27T18:33:27Z
+VMware ESXi 8.0.3 build-24022510
+VMware ESXi 8.0 Update 3
+   Product: VMware ESXi
+   Version: 8.0.3
+   Build: Releasebuild-24022510
+   Update: 3
+   Patch: 0
+--- licenc
+   vmodl key: eval
+   name: Evaluation Mode
+     [expirationHours] = 1440
+     [expirationMinutes] = 0
+     [expirationDate] = 2026-12-26T18:33:28.495485Z
+--- hardver
+Platform Information
+   UUID: 0x4d 0x38 0xfa 0x0 0x64 0x0 0x11 0xec 0x80 0x0 0x3c 0xec 0xef 0x2c 0xe9 0x78
+   Product Name: Super Server
+   Vendor Name: Supermicro
+   Serial Number: 0123456789
+   Enclosure Serial Number: 0123456789
+   BIOS Asset Tag: Default string
+   IPMI Supported: true
+   CPU Packages: 1
+   CPU Cores: 4
+   CPU Threads: 8
+   Hyperthreading Active: true
+   Hyperthreading Supported: true
+   Hyperthreading Enabled: true
+   HV Support: 3
+   Physical Memory: 25463402496 Bytes
+   Reliable Memory: 0 Bytes
+   NUMA Node Count: 1
+--- energia
+   Id: 2
+   Name: Balanced
+   Short Name: dynamic
+--- tarolo
+Mount Point                                        Volume Name                                 UUID                                 Mounted  Type            Size          Free
+-------------------------------------------------  ------------------------------------------  -----------------------------------  -------  ------  ------------  ------------
+/vmfs/volumes/6ae0e130-f0eeec06-54af-3cecef3032ac  datastore1                                  6ae0e130-f0eeec06-54af-3cecef3032ac     true  VMFS-6  886642311168  881891213312
+/vmfs/volumes/6ae0e12f-cdcf1d18-5ffe-3cecef3032ac  OSDATA-6ae0e12f-cdcf1d18-5ffe-3cecef3032ac  6ae0e12f-cdcf1d18-5ffe-3cecef3032ac     true  VMFSOS  128580583424  125500915712
+/vmfs/volumes/6d2edd8e-474b99e2-aa97-c76b934281fc  BOOTBANK1                                   6d2edd8e-474b99e2-aa97-c76b934281fc     true  vfat      4293591040    4023058432
+/vmfs/volumes/d879d022-27497410-87be-6e9f77b9cfc2  BOOTBANK2                                   d879d022-27497410-87be-6e9f77b9cfc2     true  vfat      4293591040    4293525504
+t10.ATA_____Samsung_SSD_860_PRO_1TB_________________S42NNF0K904837K_____
+   Display Name: Local ATA Disk (t10.ATA_____Samsung_SSD_860_PRO_1TB_________________S42NNF0K904837K_____)
+   Has Settable Display Name: true
+   Size: 976762
+   Model: Samsung SSD 860 
+   Is SSD: true
+   Queue Full Sample Size: 0
+t10.ATA_____Samsung_SSD_850_PRO_256GB_______________S1SUNSAFC58700W_____
+   Display Name: Local ATA Disk (t10.ATA_____Samsung_SSD_850_PRO_256GB_______________S1SUNSAFC58700W_____)
+   Has Settable Display Name: true
+   Size: 244198
+   Model: Samsung SSD 850 
+   Is SSD: true
+   Queue Full Sample Size: 0
+t10.NVMe____Samsung_SSD_970_PRO_512GB_______________99C8B1815C382500
+   Display Name: Local NVMe Disk (t10.NVMe____Samsung_SSD_970_PRO_512GB_______________99C8B1815C382500)
+   Has Settable Display Name: true
+   Size: 488386
+   Model: Samsung SSD 970 PRO 512GB               
+   Is SSD: true
+   Queue Full Sample Size: 0
+--- VT
+   Hyperthreading Active: true
+   Hyperthreading Supported: true
+   Hyperthreading Enabled: true
+   HV Support: 3

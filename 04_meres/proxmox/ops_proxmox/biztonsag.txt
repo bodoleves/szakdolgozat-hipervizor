@@ -1,0 +1,112 @@
+### Verzio
+proxmox-ve: 9.0.0 (running kernel: 6.14.11-1-pve)
+pve-manager: 9.0.6 (running version: 9.0.6/49c767b70aeb6648)
+proxmox-kernel-helper: 9.0.4
+
+### Frissitesek (apt)
+frissitheto csomagok: 269
+
+### Csomagforrasok
+Types: deb
+URIs: https://enterprise.proxmox.com/debian/pve
+Suites: trixie
+Components: pve-enterprise
+Types: deb
+URIs: http://download.proxmox.com/debian/ceph-squid
+Suites: trixie
+Components: no-subscription
+Types: deb
+URIs: http://download.proxmox.com/debian/pve
+Suites: trixie
+Components: pve-no-subscription
+Types: deb
+URIs: http://download.proxmox.com/debian/pve
+Suites: trixie
+Components: pve-no-subscription
+Types: deb
+URIs: https://deb.debian.org/debian
+Suites: trixie trixie-updates
+Components: main contrib non-free non-free-firmware
+Types: deb
+URIs: https://security.debian.org/debian-security
+Suites: trixie-security
+Components: main contrib non-free non-free-firmware
+
+### Halozati interfeszek
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+eno2             DOWN           
+eno1             UP             
+enxb03af2b6059f  DOWN           
+vmbr0            UP             192.168.0.6/24 fe80::3eec:efff:fe2c:e978/64 
+tap9001i0        UNKNOWN        
+tap9002i0        UNKNOWN        
+tap9003i0        UNKNOWN        
+
+### Figyelo szolgaltatasok (TCP/UDP)
+Netid Local Peer
+udp 0.0.0.0:111 users:(("rpcbind",pid=712,fd=5),("systemd",pid=1,fd=44))
+udp 127.0.0.1:323 users:(("chronyd",pid=893,fd=5))
+udp [::]:111 users:(("rpcbind",pid=712,fd=7),("systemd",pid=1,fd=46))
+udp [::1]:323 users:(("chronyd",pid=893,fd=6))
+tcp 0.0.0.0:22 users:(("sshd",pid=1000,fd=6))
+tcp 0.0.0.0:111 users:(("rpcbind",pid=712,fd=4),("systemd",pid=1,fd=43))
+tcp 127.0.0.1:85 users:(("pvedaemon
+tcp 127.0.0.1:25 users:(("master",pid=1137,fd=13))
+tcp *:8006 users:(("pveproxy
+tcp [::]:22 users:(("sshd",pid=1000,fd=7))
+tcp [::]:111 users:(("rpcbind",pid=712,fd=6),("systemd",pid=1,fd=45))
+tcp *:3128 users:(("spiceproxy
+tcp [::1]:25 users:(("master",pid=1137,fd=14))
+
+### Tuzfal
+Status: disabled/running
+
+### Hitelesitesi tartomanyok
++-------+------+-----------------------------------+-----+
+| realm | type | comment                           | tfa |
++=======+======+===================================+=====+
+| pam   | pam  | Linux PAM standard authentication |     |
++-------+------+-----------------------------------+-----+
+| pve   | pve  | Proxmox VE authentication server  |     |
++-------+------+-----------------------------------+-----+
+
+### Felhasznalok
++-----------+---------+---------------------+--------+--------+-----------+--------+------+----------+------------+------------------+--------+-------------+
+| userid    | comment | email               | enable | expire | firstname | groups | keys | lastname | realm-type | tfa-locked-until | tokens | totp-locked |
++===========+=========+=====================+========+========+===========+========+======+==========+============+==================+========+=============+
+| csabi@pve |         |                     | 1      |      0 |           |        |      |          | pve        |                  |        |             |
++-----------+---------+---------------------+--------+--------+-----------+--------+------+----------+------------+------------------+--------+-------------+
+| root@pam  |         | csibesz@csibesz.com | 1      |      0 |           |        |      |          | pam        |                  |        |             |
++-----------+---------+---------------------+--------+--------+-----------+--------+------+----------+------------+------------------+--------+-------------+
+
+### Ketfaktoros azonositas (tipusok, titkok nelkul)
+
+### Jogosultsagok (ACL)
++------+---------------+------+-----------+-----------+
+| path | roleid        | type | ugid      | propagate |
++======+===============+======+===========+===========+
+| /    | Administrator | user | csabi@pve | 1         |
++------+---------------+------+-----------+-----------+
+
+### API tokenek (root@pam)
+
+### SSH beallitasok
+port 22
+permitrootlogin yes
+pubkeyauthentication yes
+passwordauthentication yes
+
+### Webes felulet tanusitvanya
+| filename        | pve-root-ca.pem                                                                                  |
+| subject         | /CN=Proxmox Virtual Environment/OU=eecb9cba-a3a5-482a-8a6c-3b1cff4f22f6/O=PVE Cluster Manager CA |
+| issuer          | /CN=Proxmox Virtual Environment/OU=eecb9cba-a3a5-482a-8a6c-3b1cff4f22f6/O=PVE Cluster Manager CA |
+| notafter        | 2035-09-05 19:03:09                                                                              |
+| filename        | pve-ssl.pem                                                                                      |
+| subject         | /OU=PVE Cluster Node/O=Proxmox Virtual Environment/CN=pve1.uxn.hu                                |
+| issuer          | /CN=Proxmox Virtual Environment/OU=eecb9cba-a3a5-482a-8a6c-3b1cff4f22f6/O=PVE Cluster Manager CA |
+| notafter        | 2027-09-07 19:03:09                                                                              |
+
+### Naplozas
+Archived and active journals take up 773.8M in the file system.
+45-frr.conf
+postfix.conf

@@ -1,0 +1,144 @@
+SR: Local storage (ext), halozat: xenbr0
+== 1. Hoszt adatai ==
+2026-10-23T18:21:02+0200
+PRETTY_NAME="XCP-ng 8.3"
+xapi software-version: product_version: 8.3.0; product_version_text: 8.3; product_version_text_short: 8.3; platform_name: XCP; platform_version: 3.4.0; product_brand: XCP-ng; xapi: 26.1; build_number: cloud; git_id: 11; hostname: localhost; date: 20260707T07:40:12Z; dbv: 2026.0202; xapi_build: 26.1.11; xen: 4.17.6-9; linux: 4.19.0+1; xencenter_min: 2.21; xencenter_max: 2.21; network_backend: openvswitch; db_schema: 5.795
+nr_cpus                : 8
+cores_per_socket       : 4
+threads_per_core       : 2
+virt_caps              : pv hvm hvm_directio pv_directio hap iommu_hap_pt_share vmtrace gnttab-v1 gnttab-v2
+total_memory           : 24287
+free_memory            : 21534
+xen_version            : 4.17.6-9
+xen_commandline        : dom0_mem=2240M,max:2240M watchdog ucode=scan dom0_max_vcpus=1-8 crashkernel=256M,below=4G console=vga vga=mode-0x0311
+model name	: Intel(R) Core(TM) i3-10105 CPU @ 3.70GHz
+dom0 vCPU: 8, dom0 RAM: 2.0G
+NAME                                                                                                SIZE TYPE MODEL                                    ROTA
+nvme0n1                                                                                             477G disk Samsung SSD 970 PRO 512GB                   0
+sdb                                                                                               238.5G disk Samsung SSD 850                             0
+sda                                                                                               953.9G disk Samsung SSD 860                             0
+|-sda4                                                                                              512M part                                             0
+|-sda2                                                                                               18G part                                             0
+|-sda5                                                                                                4G part                                             0
+|-sda3                                                                                            912.4G part                                             0
+| `-XSLocalEXT--09a31b92--c866--c7f5--c50e--7d129a6a661b-09a31b92--c866--c7f5--c50e--7d129a6a661b 912.4G lvm                                              0
+|-sda1                                                                                               18G part                                             0
+`-sda6                                                                                                1G part                                             0
+name-label ( RW)              : Removable storage
+    physical-utilisation ( RO): 0
+           physical-size ( RO): 0
+                    type ( RO): udev
+
+
+name-label ( RW)              : DVD drives
+    physical-utilisation ( RO): 0
+           physical-size ( RO): 0
+                    type ( RO): udev
+
+
+name-label ( RW)              : XCP-ng Tools
+    physical-utilisation ( RO): -1
+           physical-size ( RO): -1
+                    type ( RO): iso
+
+
+name-label ( RW)              : Local storage
+    physical-utilisation ( RO): 2125824
+           physical-size ( RO): 963104858112
+                    type ( RO): ext
+
+
+== 2. Felhőkép ==
+Debian 12 felhőkép letöltése…
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100   396  100   396    0     0   1761      0 --:--:-- --:--:-- --:--:--  1760
+  0 3072M    0 6945k    0     0  5968k      0  0:08:47  0:00:01  0:08:46 5968k  1 3072M    1 52.4M    0     0  24.2M      0  0:02:06  0:00:02  0:02:04 45.7M  3 3072M    3  105M    0     0  33.3M      0  0:01:32  0:00:03  0:01:29 49.3M  5 3072M    5  159M    0     0  38.2M      0  0:01:20  0:00:04  0:01:16 50.8M  6 3072M    6  212M    0     0  41.1M      0  0:01:14  0:00:05  0:01:09 51.4M  8 3072M    8  260M    0     0  40.2M      0  0:01:16  0:00:06  0:01:10 47.8M  8 3072M    8  262M    0     0  35.9M      0  0:01:25  0:00:07  0:01:18 40.9M  8 3072M    8  275M    0     0  33.7M      0  0:01:31  0:00:08  0:01:23 33.9M 10 3072M   10  328M    0     0  35.8M      0  0:01:25  0:00:09  0:01:16 33.9M 12 3072M   12  378M    0     0  37.2M      0  0:01:22  0:00:10  0:01:12 33.1M 14 3072M   14  431M    0     0  38.6M      0  0:01:19  0:00:11  0:01:08 36.4M 15 3072M   15  484M    0     0  39.8M      0  0:01:17  0:00:12  0:01:05 45.6M 17 3072M   17  537M    0     0  40.8M      0  0:01:15  0:00:13  0:01:02 52.4M 19 3072M   19  586M    0     0  41.3M      0  0:01:14  0:00:14  0:01:00 51.4M 20 3072M   20  640M    0     0  42.2M      0  0:01:12  0:00:15  0:00:57 52.3M 22 3072M   22  693M    0     0  42.8M      0  0:01:11  0:00:16  0:00:55 52.3M 24 3072M   24  746M    0     0  43.4M      0  0:01:10  0:00:17  0:00:53 52.3M 25 3072M   25  797M    0     0  43.9M      0  0:01:09  0:00:18  0:00:51 52.0M 27 3072M   27  833M    0     0  43.5M      0  0:01:10  0:00:19  0:00:51 49.4M 28 3072M   28  881M    0     0  43.7M      0  0:01:10  0:00:20  0:00:50 48.1M 30 3072M   30  934M    0     0  44.1M      0  0:01:09  0:00:21  0:00:48 48.3M 32 3072M   32  988M    0     0  44.5M      0  0:01:08  0:00:22  0:00:46 48.3M 33 3072M   33 1042M    0     0  45.0M      0  0:01:08  0:00:23  0:00:45 48.9M 35 3072M   35 1094M    0     0  45.2M      0  0:01:07  0:00:24  0:00:43 52.1M 37 3072M   37 1139M    0     0  45.2M      0  0:01:07  0:00:25  0:00:42 51.6M 38 3072M   38 1192M    0     0  45.5M      0  0:01:07  0:00:26  0:00:41 51.6M 40 3072M   40 1246M    0     0  45.8M      0  0:01:06  0:00:27  0:00:39 51.5M 42 3072M   42 1298M    0     0  46.0M      0  0:01:06  0:00:28  0:00:38 51.0M 43 3072M   43 1351M    0     0  46.3M      0  0:01:06  0:00:29  0:00:37 51.3M 45 3072M   45 1405M    0     0  46.5M      0  0:01:05  0:00:30  0:00:35 53.1M 47 3072M   47 1459M    0     0  46.8M      0  0:01:05  0:00:31  0:00:34 53.2M 49 3072M   49 1513M    0     0  47.0M      0  0:01:05  0:00:32  0:00:33 53.4M 50 3072M   50 1562M    0     0  47.1M      0  0:01:05  0:00:33  0:00:32 52.9M 52 3072M   52 1614M    0     0  47.2M      0  0:01:05  0:00:34  0:00:31 52.5M 54 3072M   54 1665M    0     0  47.3M      0  0:01:04  0:00:35  0:00:29 52.0M 55 3072M   55 1719M    0     0  47.5M      0  0:01:04  0:00:36  0:00:28 52.0M 57 3072M   57 1772M    0     0  47.6M      0  0:01:04  0:00:37  0:00:27 51.7M 59 3072M   59 1826M    0     0  47.8M      0  0:01:04  0:00:38  0:00:26 52.6M 61 3072M   61 1879M    0     0  47.9M      0  0:01:04  0:00:39  0:00:25 53.1M 62 3072M   62 1933M    0     0  48.1M      0  0:01:03  0:00:40  0:00:23 53.5M 64 3072M   64 1987M    0     0  48.2M      0  0:01:03  0:00:41  0:00:22 53.5M 66 3072M   66 2040M    0     0  48.3M      0  0:01:03  0:00:42  0:00:21 53.5M 68 3072M   68 2093M    0     0  48.5M      0  0:01:03  0:00:43  0:00:20 53.4M 69 3072M   69 2147M    0     0  48.6M      0  0:01:03  0:00:44  0:00:19 53.5M 71 3072M   71 2192M    0     0  48.5M      0  0:01:03  0:00:45  0:00:18 51.8M 73 3072M   73 2243M    0     0  48.6M      0  0:01:03  0:00:46  0:00:17 51.2M 74 3072M   74 2290M    0     0  48.5M      0  0:01:03  0:00:47  0:00:16 50.0M 76 3072M   76 2337M    0     0  48.5M      0  0:01:03  0:00:48  0:00:15 48.7M 77 3072M   77 2371M    0     0  48.2M      0  0:01:03  0:00:49  0:00:14 44.8M 78 3072M   78 2420M    0     0  48.2M      0  0:01:03  0:00:50  0:00:13 45.6M 80 3072M   80 2471M    0     0  48.3M      0  0:01:03  0:00:51  0:00:12 45.6M 81 3072M   81 2518M    0     0  48.2M      0  0:01:03  0:00:52  0:00:11 45.0M 83 3072M   83 2559M    0     0  48.1M      0  0:01:03  0:00:53  0:00:10 44.4M 85 3072M   85 2617M    0     0  48.3M      0  0:01:03  0:00:54  0:00:09 49.2M 86 3072M   86 2669M    0     0  48.3M      0  0:01:03  0:00:55  0:00:08 49.6M 88 3072M   88 2731M    0     0  48.6M      0  0:01:03  0:00:56  0:00:07 51.9M 90 3072M   90 2792M    0     0  48.8M      0  0:01:02  0:00:57  0:00:05 55.4M 93 3072M   93 2857M    0     0  49.1M      0  0:01:02  0:00:58  0:00:04 59.5M 95 3072M   95 2922M    0     0  49.3M      0  0:01:02  0:00:59  0:00:03 60.8M 96 3072M   96 2977M    0     0  49.4M      0  0:01:02  0:01:00  0:00:02 61.6M 99 3072M   99 3041M    0     0  49.7M      0  0:01:01  0:01:01 --:--:-- 62.0M100 3072M  100 3072M    0     0  49.8M      0  0:01:01  0:01:01 --:--:-- 61.8M
+== 3. VM létrehozása ==
+elindult: 356f52c2-c53d-5cfd-f45c-f0fec431040d
+== 4. Várakozás a mérés végére (kb. 45-60 perc; a vendég a végén leáll) ==
+  18:23 még fut…
+  18:24 még fut…
+  18:25 még fut…
+  18:26 még fut…
+  18:27 még fut…
+  18:28 még fut…
+  18:29 még fut…
+  18:30 még fut…
+  18:31 még fut…
+  18:32 még fut…
+  18:33 még fut…
+  18:34 még fut…
+  18:35 még fut…
+  18:36 még fut…
+  18:37 még fut…
+  18:38 még fut…
+  18:39 még fut…
+  18:40 még fut…
+  18:41 még fut…
+  18:42 még fut…
+  18:43 még fut…
+  18:44 még fut…
+  18:45 még fut…
+  18:46 még fut…
+  18:47 még fut…
+  18:48 még fut…
+  18:49 még fut…
+  18:50 még fut…
+  18:51 még fut…
+  18:52 még fut…
+  18:53 még fut…
+  18:54 még fut…
+  18:55 még fut…
+  18:56 még fut…
+  18:57 még fut…
+  18:58 még fut…
+  18:59 még fut…
+  19:00 még fut…
+  19:01 még fut…
+  19:02 még fut…
+Kész (19:03).
+== 5. Eredmények összegyűjtése ==
+platform,ismetles,sorrend,teszt,ertek,mertekegyseg,iops,atlag_kesleltetes_us,idopont
+xcpng,1,1,mem_read,29974.08,MiB/s,,,2026-10-23T16:30:35+00:00
+xcpng,1,2,cpu1,556.89,esemeny/s,,,2026-10-23T16:31:05+00:00
+xcpng,1,3,seq_write,453.96,MiB/s,453.4,68328.7,2026-10-23T16:32:16+00:00
+xcpng,1,4,rand_read,330.12,MiB/s,84510.8,372.3,2026-10-23T16:33:26+00:00
+xcpng,1,5,seq_read,509.24,MiB/s,508.7,60907.8,2026-10-23T16:34:36+00:00
+xcpng,1,6,mem_write,25220.28,MiB/s,,,2026-10-23T16:35:06+00:00
+xcpng,1,7,cpu4,2158.62,esemeny/s,,,2026-10-23T16:35:36+00:00
+xcpng,1,8,rand_write,286.01,MiB/s,73217.9,426.8,2026-10-23T16:36:47+00:00
+xcpng,2,1,cpu1,554.73,esemeny/s,,,2026-10-23T16:37:17+00:00
+xcpng,2,2,rand_read,327.51,MiB/s,83843.1,375.0,2026-10-23T16:38:27+00:00
+xcpng,2,3,rand_write,287.32,MiB/s,73553.2,424.8,2026-10-23T16:39:37+00:00
+xcpng,2,4,seq_write,453.01,MiB/s,452.5,68471.4,2026-10-23T16:40:47+00:00
+xcpng,2,5,mem_read,29724.61,MiB/s,,,2026-10-23T16:41:17+00:00
+xcpng,2,6,mem_write,25140.14,MiB/s,,,2026-10-23T16:41:47+00:00
+xcpng,2,7,seq_read,509.4,MiB/s,508.9,60889.0,2026-10-23T16:42:58+00:00
+xcpng,2,8,cpu4,2159.21,esemeny/s,,,2026-10-23T16:43:28+00:00
+xcpng,3,1,seq_read,510.9,MiB/s,510.4,60710.4,2026-10-23T16:44:38+00:00
+xcpng,3,2,cpu1,553.98,esemeny/s,,,2026-10-23T16:45:08+00:00
+xcpng,3,3,seq_write,454.9,MiB/s,454.4,68187.7,2026-10-23T16:46:18+00:00
+xcpng,3,4,rand_read,328.82,MiB/s,84176.5,373.6,2026-10-23T16:47:28+00:00
+xcpng,3,5,rand_write,285.84,MiB/s,73174.8,427.2,2026-10-23T16:48:39+00:00
+xcpng,3,6,mem_write,25128.82,MiB/s,,,2026-10-23T16:49:09+00:00
+xcpng,3,7,mem_read,29872.96,MiB/s,,,2026-10-23T16:49:39+00:00
+xcpng,3,8,cpu4,2120.31,esemeny/s,,,2026-10-23T16:50:09+00:00
+xcpng,4,1,mem_write,25149.18,MiB/s,,,2026-10-23T16:50:39+00:00
+xcpng,4,2,rand_write,287.73,MiB/s,73657.5,424.2,2026-10-23T16:51:49+00:00
+xcpng,4,3,rand_read,327.83,MiB/s,83925.4,374.7,2026-10-23T16:52:59+00:00
+xcpng,4,4,cpu4,2146.39,esemeny/s,,,2026-10-23T16:53:29+00:00
+xcpng,4,5,mem_read,29887.86,MiB/s,,,2026-10-23T16:53:59+00:00
+xcpng,4,6,seq_write,453.02,MiB/s,452.5,68470.3,2026-10-23T16:55:09+00:00
+xcpng,4,7,cpu1,557.94,esemeny/s,,,2026-10-23T16:55:39+00:00
+xcpng,4,8,seq_read,509.09,MiB/s,508.6,60926.0,2026-10-23T16:56:50+00:00
+xcpng,5,1,cpu4,2158.75,esemeny/s,,,2026-10-23T16:57:20+00:00
+xcpng,5,2,seq_read,509.42,MiB/s,508.9,60886.0,2026-10-23T16:58:30+00:00
+xcpng,5,3,seq_write,454.72,MiB/s,454.2,68214.4,2026-10-23T16:59:40+00:00
+xcpng,5,4,rand_write,286.33,MiB/s,73300.9,426.7,2026-10-23T17:00:50+00:00
+xcpng,5,5,mem_read,29920.01,MiB/s,,,2026-10-23T17:01:21+00:00
+xcpng,5,6,rand_read,327.72,MiB/s,83896.9,374.7,2026-10-23T17:02:31+00:00
+xcpng,5,7,cpu1,558.64,esemeny/s,,,2026-10-23T17:03:01+00:00
+xcpng,5,8,mem_write,25084.68,MiB/s,,,2026-10-23T17:03:31+00:00
+Sorok száma a CSV-ben: 41 (várt: 41)
+Mentve: /root/bench_results_xcpng.tar.gz   (a bench-debian12 VM leállítva megmarad)

@@ -1,0 +1,283 @@
+#!/bin/bash
+# ESXi 8.0U3e (ingyenes) – teljesítménymérés + üzemeltetési (U1–U3) és biztonsági felvétel.
+# A MACEN futtatandó (bash 3.2 kompatibilis). SSH-n vezérli az ESXi hosztot (root) és a vendéget (debian).
+#
+# Előfeltétel az ESXi-n: SSH és ESXi Shell bekapcsolva (DCUI: F2 → Troubleshooting Options).
+# Használat:
+#   bash esxi_mac.sh setup <esxi-ip>     # ssh-kulcs felrakása, kép letöltése, seedek, bázislemez (egyszer)
+#   bash esxi_mac.sh bench <esxi-ip>     # mérés (~45 perc)
+#   bash esxi_mac.sh ops   <esxi-ip>     # U1–U3 + biztonsági felvétel (~20 perc)
+#   bash esxi_mac.sh all   <esxi-ip>     # mindhárom egymás után
+# Eredmény: 04_meres/esxi/  (esxi_bench/, ops_esxi/, bench.log, ops.log)
+set -u
+
+CMD="${1:?setup|bench|ops|all}"; ESXI_IP="${2:?ESXi IP-cím}"
+HERE="$(cd "$(dirname "$0")" && pwd)"
+OUTROOT="$HERE/esxi"; mkdir -p "$OUTROOT/esxi_bench" "$OUTROOT/ops_esxi" "$OUTROOT/seeds"
+DS="${DS:-datastore1}"                 # datastore neve az ESXi-n
+PG="${PG:-VM Network}"                 # portcsoport neve
+KEY="$HOME/.ssh/szakdolgozat_esxi"
+BASE_URL="https://cloud.debian.org/images/cloud/bookworm/latest/debian-12-genericcloud-amd64.raw"
+RAW="$OUTROOT/seeds/debian-12-genericcloud-amd64.raw"
+MERES="$HERE/meres.sh"
+TOKEN="${TOKEN:-$(LC_ALL=C tr -dc A-Za-z0-9 </dev/urandom | head -c 16)}"
+SSHO="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o LogLevel=ERROR -o ConnectTimeout=8"
+H() { ssh $SSHO -i "$KEY" root@"$ESXI_IP" "$@"; }                       # parancs az ESXi-n
+G() { local ip=$1; shift; ssh $SSHO -i "$KEY" -o BatchMode=yes debian@"$ip" "$@"; }   # parancs a vendégben
+now() { perl -MTime::HiRes=time -e 'printf "%.3f\n", time'; }
+dt()  { perl -e 'printf "%.1f\n", $ARGV[1]-$ARGV[0]' "$1" "$2"; }
+log() { echo "[$(date +%H:%M:%S)] $*"; }
+DSP="/vmfs/volumes/$DS"
+
+# ---------------------------------------------------------------- segédfüggvények
+vmid_of()  { H "vim-cmd vmsvc/getallvms" | awk -v n="$1" '$2==n{print $1; exit}'; }
+guest_ip() { H "vim-cmd vmsvc/get.guest $1 2>/dev/null" | awk -F'"' '/^   ipAddress = "/{print $2; exit}'; }
+tools_run(){ H "vim-cmd vmsvc/get.guest $1 2>/dev/null" | grep -q 'toolsRunningStatus = "guestToolsRunning"'; }
+pstate()   { H "vim-cmd vmsvc/power.getstate $1" | tail -1; }
+wait_usable() {  # $1 vmid → 0 ha a VMware Tools fut és van IP (5 s-os lekérdezés, max 15 perc)
+  local i=0; while [ $i -lt 180 ]; do
+    if tools_run "$1"; then local ip; ip=$(guest_ip "$1"); [ -n "$ip" ] && [ "$ip" != "0.0.0.0" ] && { echo "$ip"; return 0; }; fi
+    sleep 5; i=$((i+1)); done; return 1; }
+wait_off() { local i=0; while [ $i -lt 60 ]; do pstate "$1" | grep -q "Powered off" && return 0; sleep 2; i=$((i+1)); done; return 1; }
+wait_ssh() { local i=0; while [ $i -lt 60 ]; do G "$1" true 2>/dev/null && return 0; sleep 5; i=$((i+1)); done; return 1; }
+
+write_vmx() {  # $1 név  $2 seed.iso  $3 vcpu  $4 memMB  → a VM könyvtárába írja NAME.vmx
+  local n=$1 seed=$2 v=$3 m=$4
+  H "cat > $DSP/$n/$n.vmx" <<EOF
+.encoding = "UTF-8"
+config.version = "8"
+virtualHW.version = "21"
+displayName = "$n"
+guestOS = "debian12-64"
+firmware = "bios"
+numvcpus = "$v"
+cpuid.coresPerSocket = "$v"
+memSize = "$m"
+svga.present = "TRUE"
+vmci0.present = "TRUE"
+pciBridge0.present = "TRUE"
+pciBridge4.present = "TRUE"
+pciBridge4.virtualDev = "pcieRootPort"
+pciBridge4.functions = "8"
+pciBridge5.present = "TRUE"
+pciBridge5.virtualDev = "pcieRootPort"
+pciBridge5.functions = "8"
+pciBridge6.present = "TRUE"
+pciBridge6.virtualDev = "pcieRootPort"
+pciBridge6.functions = "8"
+pciBridge7.present = "TRUE"
+pciBridge7.virtualDev = "pcieRootPort"
+pciBridge7.functions = "8"
+scsi0.present = "TRUE"
+scsi0.virtualDev = "pvscsi"
+scsi0:0.present = "TRUE"
+scsi0:0.deviceType = "scsi-hardDisk"
+scsi0:0.fileName = "$n.vmdk"
+ide1:0.present = "TRUE"
+ide1:0.deviceType = "cdrom-image"
+ide1:0.fileName = "$DSP/seeds/$seed"
+ide1:0.startConnected = "TRUE"
+ethernet0.present = "TRUE"
+ethernet0.virtualDev = "vmxnet3"
+ethernet0.networkName = "$PG"
+ethernet0.addressType = "generated"
+tools.syncTime = "FALSE"
+serial0.present = "TRUE"
+serial0.fileType = "file"
+serial0.fileName = "$DSP/$n/serial.log"
+serial0.yieldOnMsrRead = "TRUE"
+uuid.action = "create"
+EOF
+}
+
+make_vm() {  # $1 név  $2 seed  → vmid; a bázislemezből vékony klón, 32 GiB-re bővítve
+  local n=$1 seed=$2
+  H "mkdir -p $DSP/$n && vmkfstools -i $DSP/seeds/debian-base.vmdk $DSP/$n/$n.vmdk -d thin >/dev/null && vmkfstools -X 32G $DSP/$n/$n.vmdk >/dev/null"
+  write_vmx "$n" "$seed" 4 8192
+  H "vim-cmd solo/registervm $DSP/$n/$n.vmx" | tail -1
+}
+
+# ---------------------------------------------------------------- setup
+do_setup() {
+  [ -f "$MERES" ] || { echo "Nincs meg: $MERES (a meres.sh legyen a szkript mellett)"; exit 1; }
+  [ -f "$KEY" ] || ssh-keygen -t ed25519 -N "" -f "$KEY" -C szakdolgozat-esxi >/dev/null
+  log "SSH-kulcs felrakása az ESXi-re (egyszer kéri a root jelszót)"
+  ssh $SSHO root@"$ESXI_IP" "mkdir -p /etc/ssh/keys-root && cat >> /etc/ssh/keys-root/authorized_keys" < "$KEY.pub"
+  H "ls -d $DSP" >/dev/null || { echo "Nincs ilyen datastore: $DS  (DS=név bash esxi_mac.sh ...)"; exit 1; }
+  H "mkdir -p $DSP/seeds"
+
+  if [ ! -f "$RAW" ]; then
+    log "Debian 12 felhőkép letöltése a Macre (kb. 2 GB)"; curl -fL --retry 3 -o "$RAW.part" "$BASE_URL" && mv "$RAW.part" "$RAW"
+  fi
+  if ! H "test -s $DSP/seeds/debian-base.vmdk"; then
+    log "Kép feltöltése az ESXi-re és VMDK-vá alakítása"
+    scp $SSHO -i "$KEY" "$RAW" root@"$ESXI_IP":"$DSP/seeds/base-flat.vmdk"
+    local bytes; bytes=$(stat -f %z "$RAW"); local sect=$((bytes/512))
+    H "cat > $DSP/seeds/base.vmdk" <<EOF
+# Disk DescriptorFile
+version=1
+encoding="UTF-8"
+CID=fffffffe
+parentCID=ffffffff
+createType="vmfs"
+RW $sect VMFS "base-flat.vmdk"
+ddb.adapterType = "lsilogic"
+ddb.virtualHWVersion = "21"
+EOF
+    H "cd $DSP/seeds && vmkfstools -i base.vmdk debian-base.vmdk -d thin >/dev/null && rm -f base.vmdk base-flat.vmdk"
+  fi
+
+  log "cloud-init seedek készítése (NoCloud ISO)"
+  local pub; pub=$(cat "$KEY.pub"); local mb64; mb64=$(base64 < "$MERES" | tr -d '\n')
+  local sb="$OUTROOT/seeds/seed_bench" so="$OUTROOT/seeds/seed_ops"; rm -rf "$sb" "$so"; mkdir -p "$sb" "$so"
+  printf 'instance-id: bench-esxi-001\nlocal-hostname: bench-debian12\n' > "$sb/meta-data"
+  cat > "$sb/user-data" <<EOF
+#cloud-config
+package_update: true
+packages: [sysbench, fio, python3, open-vm-tools]
+ssh_authorized_keys:
+  - $pub
+write_files:
+  - path: /root/meres.sh
+    permissions: '0755'
+    encoding: b64
+    content: $mb64
+runcmd:
+  - [bash, -c, "systemctl enable --now open-vm-tools > /root/agent.log 2>&1 || true"]
+  - [bash, -c, "cd /root && ./meres.sh esxi 5 > /root/meres.log 2>&1; tar czf /home/debian/eredmeny.tgz -C /root eredmenyek meres.log agent.log; chown debian /home/debian/eredmeny.tgz"]
+EOF
+  printf 'instance-id: ops-esxi-001\nlocal-hostname: ops-u1\n' > "$so/meta-data"
+  cat > "$so/user-data" <<EOF
+#cloud-config
+package_update: true
+packages: [open-vm-tools]
+ssh_authorized_keys:
+  - $pub
+runcmd:
+  - [bash, -c, "systemctl enable --now open-vm-tools > /root/agent.log 2>&1 || true"]
+EOF
+  for d in "$sb" "$so"; do printf 'version: 2\nethernets:\n  ens192:\n    dhcp4: true\n' > "$d/network-config"; done   # nevalapu halozat (ne MAC-hez kotve: visszaallitott VM uj MAC-kel is kap IP-t)
+  rm -f "$OUTROOT/seeds/seed_bench.iso" "$OUTROOT/seeds/seed_ops.iso"
+  hdiutil makehybrid -quiet -iso -joliet -default-volume-name CIDATA -o "$OUTROOT/seeds/seed_bench.iso" "$sb"
+  hdiutil makehybrid -quiet -iso -joliet -default-volume-name CIDATA -o "$OUTROOT/seeds/seed_ops.iso" "$so"
+  scp $SSHO -i "$KEY" "$OUTROOT/seeds/seed_bench.iso" "$OUTROOT/seeds/seed_ops.iso" root@"$ESXI_IP":"$DSP/seeds/"
+  log "setup kész"
+}
+
+host_info() {  # $1 kimeneti fájl
+  H 'date -u +%Y-%m-%dT%H:%M:%SZ; vmware -vl; esxcli system version get; echo "--- licenc"; vim-cmd vimsvc/license --show 2>/dev/null | grep -E "name|key|expiration" ;
+     echo "--- hardver"; esxcli hardware platform get; esxcli hardware cpu global get; esxcli hardware memory get;
+     echo "--- energia"; esxcli hardware power policy get 2>/dev/null || true;
+     echo "--- tarolo"; esxcli storage filesystem list; esxcli storage core device list | grep -E "^(t10|naa|mpx)|Display Name|Is SSD|Size:|Model" ;
+     echo "--- VT"; esxcli hardware cpu global get | grep -iE "hyperthreading|hv"' > "$1" 2>&1
+}
+
+# ---------------------------------------------------------------- bench
+do_bench() {
+  local N=bench-debian12 id ip
+  exec > >(tee -a "$OUTROOT/bench.log") 2>&1
+  log "bench: VM létrehozása"
+  host_info "$OUTROOT/esxi_bench/bench_host_info.txt"
+  id=$(vmid_of $N); [ -n "$id" ] && { H "vim-cmd vmsvc/power.off $id >/dev/null 2>&1; vim-cmd vmsvc/destroy $id" >/dev/null; }
+  id=$(make_vm $N seed_bench.iso); log "vmid=$id"
+  H "cat $DSP/$N/$N.vmx" > "$OUTROOT/esxi_bench/bench_vm_config.txt"
+  H "vim-cmd vmsvc/power.on $id" >/dev/null
+  ip=$(wait_usable "$id") || { echo "A vendég nem jelentkezett be (Tools/IP)"; exit 1; }
+  log "vendég IP: $ip – a mérés a vendégben fut (kb. 45 perc), várakozás az eredményre"
+  wait_ssh "$ip" || { echo "nincs SSH a vendéghez"; exit 1; }
+  local i=0; while [ $i -lt 240 ]; do G "$ip" "test -s /home/debian/eredmeny.tgz" 2>/dev/null && break; sleep 30; i=$((i+1)); done
+  G "$ip" "test -s /home/debian/eredmeny.tgz" || { echo "Nem készült el az eredmény 2 óra alatt"; exit 1; }
+  scp $SSHO -i "$KEY" debian@"$ip":/home/debian/eredmeny.tgz "$OUTROOT/esxi_bench/"
+  tar xzf "$OUTROOT/esxi_bench/eredmeny.tgz" -C "$OUTROOT/esxi_bench"
+  H "vim-cmd vmsvc/get.guest $id" > "$OUTROOT/esxi_bench/guest_info.txt"
+  H "vim-cmd vmsvc/power.shutdown $id" >/dev/null 2>&1; wait_off "$id" || H "vim-cmd vmsvc/power.off $id" >/dev/null
+  cat "$OUTROOT"/esxi_bench/eredmenyek/esxi_*/eredmenyek.csv
+  log "bench kész: $OUTROOT/esxi_bench  (a $N VM leállítva megmarad)"
+}
+
+# ---------------------------------------------------------------- ops
+do_sec() {  # biztonsagi felvetel (csak olvasas) -> ops_esxi/biztonsag.txt
+  local O="$OUTROOT/ops_esxi"
+  echo "== Biztonsági áttekintés (csak olvasás) =="
+  H 'echo "### Verzio"; vmware -vl; esxcli system version get | grep -E "Version|Build|Update|Patch";
+     echo; echo "### Licenc"; vim-cmd vimsvc/license --show 2>/dev/null | grep -E "name|expiration|features" | head;
+     echo; echo "### Image profile / frissites"; esxcli software profile get | grep -E "^ *(Name|Creation|Modification)";
+     echo "VIB-ek szama: $(esxcli software vib list | tail -n +3 | wc -l)";
+     echo; echo "### Halozati interfeszek"; esxcli network ip interface ipv4 get; esxcli network vswitch standard list | grep -E "Name|Portgroups|Uplinks";
+     echo; echo "### Figyelo portok"; esxcli network ip connection list | awk "\$1==\"tcp\" && \$6==\"LISTEN\"{print \$1, \$4, \$9}" | sort -u;
+     echo; echo "### Tuzfal"; esxcli network firewall get; echo "engedelyezett szabalykeszletek:"; esxcli network firewall ruleset list | awk "\$2==\"true\"{print \$1}" | awk "ORS=\" \""; echo;
+     echo; echo "### Szolgaltatasok"; for s in SSH ESXShell ntpd; do printf "%s: " $s; /etc/init.d/$s status 2>/dev/null | head -1; done;
+     echo "SSH idotullepes (s): $(esxcli system settings advanced list -o /UserVars/ESXiShellTimeOut | grep "Int Value" | head -1)";
+     echo "MOB: $(vim-cmd hostsvc/advopt/view Config.HostAgent.plugins.solo.enableMob | grep value)";
+     echo; echo "### Lockdown"; vim-cmd -U dcui vimsvc/auth/lockdown_is_enabled 2>/dev/null;
+     echo; echo "### Fiokok / jogosultsagok"; esxcli system account list; esxcli system permission list;
+     echo; echo "### Jelszohazirend"; for k in Security.PasswordQualityControl Security.AccountLockFailures Security.AccountUnlockTime Security.PasswordHistory; do printf "%s: " $k; vim-cmd hostsvc/advopt/view $k | grep value; done;
+     echo; echo "### Tanusitvany"; openssl x509 -in /etc/vmware/ssl/rui.crt -noout -subject -issuer -enddate;
+     echo; echo "### Naplozas"; esxcli system syslog config get | grep -E "Remote Host|Log Dir|Default Size";
+     echo; echo "### NTP"; esxcli system ntp get' > "$O/biztonsag.txt" 2>&1
+}
+
+do_ops() {
+  local O="$OUTROOT/ops_esxi" V1=ops-u1 V2=ops-u3-restore id id2 ip ip2 t0 t1 t2 t3 ts te ok egyez
+  exec > >(tee -a "$OUTROOT/ops.log") 2>&1
+  echo "feladat,lepes,ido_s,megjegyzes" > "$O/idok.csv"
+  L() { echo "$1,$2,$3,$4" >> "$O/idok.csv"; echo "[$1] $2: $3 s  $4"; }
+  echo "futo_vendegek: $(H 'esxcli vm process list' | grep -c 'World ID')" > "$O/kornyezet.txt"
+  for n in $V1 $V2; do id=$(vmid_of $n); [ -n "$id" ] && H "vim-cmd vmsvc/power.off $id >/dev/null 2>&1; vim-cmd vmsvc/destroy $id" >/dev/null; done
+  H "rm -rf $DSP/mentes $DSP/$V2"
+
+  echo "== U1: VM létrehozása =="
+  t0=$(now); id=$(make_vm $V1 seed_ops.iso); t1=$(now)
+  L U1 letrehozas_es_lemezimport "$(dt $t0 $t1)" "vmkfstools klon a bazislemezbol + bovites + vmx + regisztracio"
+  H "vim-cmd vmsvc/power.on $id" >/dev/null
+  ip=$(wait_usable "$id") && ok=igen || ok=nem; t2=$(now)
+  L U1 inditas_hasznalhatoig "$(dt $t1 $t2)" "VMware Tools fut es IP jelentve: $ok (cloud-init csomagtelepites is)"
+  L U1 osszesen "$(dt $t0 $t2)" ""
+  H "cat $DSP/$V1/$V1.vmx" > "$O/u1_vm_config.txt"
+  wait_ssh "$ip" || echo "figyelem: nincs SSH a vendeghez"
+
+  echo "== U2: Erőforrás-módosítás és visszaállítás =="
+  chg() {  # $1 vcpu $2 memMB $3 cimke
+    local a b vc mm; a=$(now)
+    H "vim-cmd vmsvc/power.shutdown $id" >/dev/null; wait_off "$id" || H "vim-cmd vmsvc/power.off $id" >/dev/null
+    H "sed -i -e 's/^numvcpus = .*/numvcpus = \"$1\"/' -e 's/^cpuid.coresPerSocket = .*/cpuid.coresPerSocket = \"$1\"/' -e 's/^memSize = .*/memSize = \"$2\"/' $DSP/$V1/$V1.vmx && vim-cmd vmsvc/reload $id"
+    H "vim-cmd vmsvc/power.on $id" >/dev/null; ip=$(wait_usable "$id"); b=$(now)
+    wait_ssh "$ip"; vc=$(G "$ip" nproc 2>/dev/null); mm=$(G "$ip" "free -m | awk '/Mem:/{print \$2}'" 2>/dev/null)
+    L U2 "$3" "$(dt $a $b)" "vendegben: vcpu=$vc mem_mb=$mm"
+  }
+  chg 2 4096 modositas_2vcpu_4GB
+  chg 4 8192 visszaallitas_4vcpu_8GB
+
+  echo "== U3: Mentés (csendesített pillanatkép + lemezklón) és helyreállítás =="
+  G "$ip" "echo $TOKEN | sudo tee /root/jelzo.txt >/dev/null; sync"
+  t0=$(now)
+  H "vim-cmd vmsvc/snapshot.create $id mentes-snap '' 0 1" > "$O/u3_snapshot.log" 2>&1; ts=$(now)
+  H "mkdir -p $DSP/mentes && vmkfstools -i $DSP/$V1/$V1.vmdk $DSP/mentes/$V1-mentes.vmdk -d thin && cp $DSP/$V1/$V1.vmx $DSP/mentes/" >> "$O/u3_snapshot.log" 2>&1; te=$(now)
+  H "vim-cmd vmsvc/snapshot.removeall $id" >> "$O/u3_snapshot.log" 2>&1; t1=$(now)
+  SZ=$(H "du -sh $DSP/mentes | cut -f1")
+  L U3 mentes_snapshot_mod "$(dt $t0 $t1)" "csendesitett pillanatkep $(dt $t0 $ts) s + vmkfstools klon $(dt $ts $te) s + torles; meret: $SZ (thin); VM futott kozben"
+  H "mkdir -p $DSP/$V2 && vmkfstools -i $DSP/mentes/$V1-mentes.vmdk $DSP/$V2/$V2.vmdk -d thin" > "$O/u3_restore.log" 2>&1
+  write_vmx $V2 seed_ops.iso 4 8192
+  id2=$(H "vim-cmd solo/registervm $DSP/$V2/$V2.vmx" | tail -1); t2=$(now)
+  L U3 visszaallitas_uj_vm "$(dt $t1 $t2)" "vmkfstools klon a mentesbol + vmx + regisztracio -> $V2"
+  H "vim-cmd vmsvc/power.on $id2" >/dev/null
+  ip2=$(wait_usable "$id2") && ok=igen || ok=nem
+  egyez=nem; wait_ssh "$ip2" && [ "$(G "$ip2" 'sudo cat /root/jelzo.txt' 2>/dev/null)" = "$TOKEN" ] && egyez=igen
+  t3=$(now); L U3 visszaallitott_vm_hasznalhato "$(dt $t2 $t3)" "Tools+IP: $ok, jelzofajl egyezik: $egyez"
+
+  do_sec
+
+  echo "== Takarítás =="
+  for i in "$id2" "$id"; do H "vim-cmd vmsvc/power.off $i >/dev/null 2>&1; vim-cmd vmsvc/destroy $i" >/dev/null 2>&1; done
+  cat "$O/idok.csv"
+  log "ops kész: $O   (a mentés megmaradt: $DSP/mentes)"
+}
+
+case "$CMD" in
+  setup) do_setup ;;
+  bench) do_bench ;;
+  ops)   do_ops ;;
+  sec)   do_sec ;;
+  all)   do_setup && do_bench && do_ops ;;
+  *) echo "setup|bench|ops|sec|all"; exit 1 ;;
+esac

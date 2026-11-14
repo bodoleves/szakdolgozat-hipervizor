@@ -1,0 +1,55 @@
+== Bemelegítés (nem kerül az eredmények közé) ==
+  [0] cpu1: 559.90 esemeny/s
+  [0] cpu4: 2157.24 esemeny/s
+  [0] mem_read: 30318.28 MiB/s
+  [0] mem_write: 25550.46 MiB/s
+  [0] seq_read: 535.54 MiB/s
+  [0] seq_write: 472.62 MiB/s
+  [0] rand_read: 367.92 MiB/s
+  [0] rand_write: 320.82 MiB/s
+== Ismétlés 1/5 (véletlen sorrend) ==
+  [1] rand_write: 321.17 MiB/s
+  [1] mem_write: 25545.47 MiB/s
+  [1] cpu1: 560.15 esemeny/s
+  [1] cpu4: 2154.53 esemeny/s
+  [1] mem_read: 30439.05 MiB/s
+  [1] seq_read: 535.05 MiB/s
+  [1] seq_write: 472.81 MiB/s
+  [1] rand_read: 368.88 MiB/s
+== Ismétlés 2/5 (véletlen sorrend) ==
+  [2] cpu4: 2157.23 esemeny/s
+  [2] mem_read: 30466.85 MiB/s
+  [2] cpu1: 560.00 esemeny/s
+  [2] seq_write: 472.49 MiB/s
+  [2] seq_read: 535.76 MiB/s
+  [2] rand_read: 369.49 MiB/s
+  [2] mem_write: 25542.40 MiB/s
+  [2] rand_write: 319.68 MiB/s
+== Ismétlés 3/5 (véletlen sorrend) ==
+  [3] seq_write: 472.61 MiB/s
+  [3] cpu1: 559.36 esemeny/s
+  [3] mem_read: 30479.26 MiB/s
+  [3] cpu4: 2157.24 esemeny/s
+  [3] mem_write: 25539.53 MiB/s
+  [3] rand_read: 368.72 MiB/s
+  [3] seq_read: 535.65 MiB/s
+  [3] rand_write: 320.38 MiB/s
+== Ismétlés 4/5 (véletlen sorrend) ==
+  [4] seq_write: 472.96 MiB/s
+  [4] mem_write: 25547.71 MiB/s
+  [4] cpu4: 2156.92 esemeny/s
+  [4] seq_read: 535.69 MiB/s
+  [4] cpu1: 559.90 esemeny/s
+  [4] mem_read: 30452.00 MiB/s
+  [4] rand_read: 369.56 MiB/s
+  [4] rand_write: 320.55 MiB/s
+== Ismétlés 5/5 (véletlen sorrend) ==
+  [5] mem_read: 30474.33 MiB/s
+  [5] seq_write: 472.74 MiB/s
+  [5] mem_write: 25679.32 MiB/s
+  [5] cpu4: 2159.52 esemeny/s
+  [5] cpu1: 561.82 esemeny/s
+  [5] rand_read: 367.58 MiB/s
+  [5] seq_read: 535.92 MiB/s
+  [5] rand_write: 321.05 MiB/s
+Kész: ./eredmenyek/proxmox_20261004_153610/eredmenyek.csv

@@ -1,0 +1,48 @@
+2026-10-23T18:21:02+0200
+PRETTY_NAME="XCP-ng 8.3"
+xapi software-version: product_version: 8.3.0; product_version_text: 8.3; product_version_text_short: 8.3; platform_name: XCP; platform_version: 3.4.0; product_brand: XCP-ng; xapi: 26.1; build_number: cloud; git_id: 11; hostname: localhost; date: 20260707T07:40:12Z; dbv: 2026.0202; xapi_build: 26.1.11; xen: 4.17.6-9; linux: 4.19.0+1; xencenter_min: 2.21; xencenter_max: 2.21; network_backend: openvswitch; db_schema: 5.795
+nr_cpus                : 8
+cores_per_socket       : 4
+threads_per_core       : 2
+virt_caps              : pv hvm hvm_directio pv_directio hap iommu_hap_pt_share vmtrace gnttab-v1 gnttab-v2
+total_memory           : 24287
+free_memory            : 21534
+xen_version            : 4.17.6-9
+xen_commandline        : dom0_mem=2240M,max:2240M watchdog ucode=scan dom0_max_vcpus=1-8 crashkernel=256M,below=4G console=vga vga=mode-0x0311
+model name	: Intel(R) Core(TM) i3-10105 CPU @ 3.70GHz
+dom0 vCPU: 8, dom0 RAM: 2.0G
+NAME                                                                                                SIZE TYPE MODEL                                    ROTA
+nvme0n1                                                                                             477G disk Samsung SSD 970 PRO 512GB                   0
+sdb                                                                                               238.5G disk Samsung SSD 850                             0
+sda                                                                                               953.9G disk Samsung SSD 860                             0
+|-sda4                                                                                              512M part                                             0
+|-sda2                                                                                               18G part                                             0
+|-sda5                                                                                                4G part                                             0
+|-sda3                                                                                            912.4G part                                             0
+| `-XSLocalEXT--09a31b92--c866--c7f5--c50e--7d129a6a661b-09a31b92--c866--c7f5--c50e--7d129a6a661b 912.4G lvm                                              0
+|-sda1                                                                                               18G part                                             0
+`-sda6                                                                                                1G part                                             0
+name-label ( RW)              : Removable storage
+    physical-utilisation ( RO): 0
+           physical-size ( RO): 0
+                    type ( RO): udev
+
+
+name-label ( RW)              : DVD drives
+    physical-utilisation ( RO): 0
+           physical-size ( RO): 0
+                    type ( RO): udev
+
+
+name-label ( RW)              : XCP-ng Tools
+    physical-utilisation ( RO): -1
+           physical-size ( RO): -1
+                    type ( RO): iso
+
+
+name-label ( RW)              : Local storage
+    physical-utilisation ( RO): 2125824
+           physical-size ( RO): 963104858112
+                    type ( RO): ext
+
+

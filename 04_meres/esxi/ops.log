@@ -1,0 +1,28 @@
+== U1: VM létrehozása ==
+[U1] letrehozas_es_lemezimport: 14.7 s  vmkfstools klon a bazislemezbol + bovites + vmx + regisztracio
+[U1] inditas_hasznalhatoig: 20.1 s  VMware Tools fut es IP jelentve: igen (cloud-init csomagtelepites is)
+[U1] osszesen: 34.8 s  
+== U2: Erőforrás-módosítás és visszaállítás ==
+== U1: VM létrehozása ==
+[U1] letrehozas_es_lemezimport: 13.8 s  vmkfstools klon a bazislemezbol + bovites + vmx + regisztracio
+[U1] inditas_hasznalhatoig: 19.5 s  VMware Tools fut es IP jelentve: igen (cloud-init csomagtelepites is)
+[U1] osszesen: 33.2 s  
+== U2: Erőforrás-módosítás és visszaállítás ==
+[U2] modositas_2vcpu_4GB: 45.0 s  vendegben: vcpu=2 mem_mb=3927
+[U2] visszaallitas_4vcpu_8GB: 39.6 s  vendegben: vcpu=4 mem_mb=7953
+== U3: Mentés (csendesített pillanatkép + lemezklón) és helyreállítás ==
+[U3] mentes_snapshot_mod: 18.1 s  csendesitett pillanatkep 5.1 s + vmkfstools klon 12.0 s + torles; meret: 2.8G (thin); VM futott kozben
+[U3] visszaallitas_uj_vm: 13.2 s  vmkfstools klon a mentesbol + vmx + regisztracio -> ops-u3-restore
+[U3] visszaallitott_vm_hasznalhato: 41.1 s  Tools+IP: igen, jelzofajl egyezik: igen
+== Biztonsági áttekintés (csak olvasás) ==
+== Takarítás ==
+feladat,lepes,ido_s,megjegyzes
+U1,letrehozas_es_lemezimport,13.8,vmkfstools klon a bazislemezbol + bovites + vmx + regisztracio
+U1,inditas_hasznalhatoig,19.5,VMware Tools fut es IP jelentve: igen (cloud-init csomagtelepites is)
+U1,osszesen,33.2,
+U2,modositas_2vcpu_4GB,45.0,vendegben: vcpu=2 mem_mb=3927
+U2,visszaallitas_4vcpu_8GB,39.6,vendegben: vcpu=4 mem_mb=7953
+U3,mentes_snapshot_mod,18.1,csendesitett pillanatkep 5.1 s + vmkfstools klon 12.0 s + torles; meret: 2.8G (thin); VM futott kozben
+U3,visszaallitas_uj_vm,13.2,vmkfstools klon a mentesbol + vmx + regisztracio -> ops-u3-restore
+U3,visszaallitott_vm_hasznalhato,41.1,Tools+IP: igen, jelzofajl egyezik: igen
+[20:40:48] ops kész: /Users/leventebodo/Documents/szakdolgozatv2/04_meres/esxi/ops_esxi   (a mentés megmaradt: /vmfs/volumes/datastore1/mentes)

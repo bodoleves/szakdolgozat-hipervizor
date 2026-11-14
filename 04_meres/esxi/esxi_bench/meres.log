@@ -1,0 +1,55 @@
+== Bemelegítés (nem kerül az eredmények közé) ==
+  [0] cpu1: 549.98 esemeny/s
+  [0] cpu4: 2160.16 esemeny/s
+  [0] mem_read: 29679.83 MiB/s
+  [0] mem_write: 25170.36 MiB/s
+  [0] seq_read: 534.93 MiB/s
+  [0] seq_write: 474.28 MiB/s
+  [0] rand_read: 374.88 MiB/s
+  [0] rand_write: 333.37 MiB/s
+== Ismétlés 1/5 (véletlen sorrend) ==
+  [1] cpu4: 2161.83 esemeny/s
+  [1] mem_write: 25155.82 MiB/s
+  [1] cpu1: 550.57 esemeny/s
+  [1] seq_read: 536.5 MiB/s
+  [1] seq_write: 476.42 MiB/s
+  [1] mem_read: 29997.52 MiB/s
+  [1] rand_write: 334.93 MiB/s
+  [1] rand_read: 376.59 MiB/s
+== Ismétlés 2/5 (véletlen sorrend) ==
+  [2] mem_write: 25150.02 MiB/s
+  [2] rand_write: 334.89 MiB/s
+  [2] cpu1: 550.71 esemeny/s
+  [2] seq_write: 476.18 MiB/s
+  [2] cpu4: 2161.97 esemeny/s
+  [2] mem_read: 29711.09 MiB/s
+  [2] rand_read: 375.99 MiB/s
+  [2] seq_read: 536.82 MiB/s
+== Ismétlés 3/5 (véletlen sorrend) ==
+  [3] mem_read: 29704.85 MiB/s
+  [3] seq_read: 536.89 MiB/s
+  [3] cpu1: 550.39 esemeny/s
+  [3] rand_write: 334.78 MiB/s
+  [3] rand_read: 375.92 MiB/s
+  [3] mem_write: 25145.72 MiB/s
+  [3] seq_write: 476.59 MiB/s
+  [3] cpu4: 2159.06 esemeny/s
+== Ismétlés 4/5 (véletlen sorrend) ==
+  [4] cpu4: 2158.27 esemeny/s
+  [4] seq_write: 475.57 MiB/s
+  [4] rand_write: 334.9 MiB/s
+  [4] mem_write: 25117.39 MiB/s
+  [4] mem_read: 29692.10 MiB/s
+  [4] seq_read: 536.31 MiB/s
+  [4] cpu1: 549.63 esemeny/s
+  [4] rand_read: 375.78 MiB/s
+== Ismétlés 5/5 (véletlen sorrend) ==
+  [5] cpu4: 2160.03 esemeny/s
+  [5] rand_read: 376.03 MiB/s
+  [5] seq_read: 535.99 MiB/s
+  [5] mem_read: 30016.16 MiB/s
+  [5] seq_write: 476.76 MiB/s
+  [5] mem_write: 25153.23 MiB/s
+  [5] cpu1: 550.54 esemeny/s
+  [5] rand_write: 335.22 MiB/s
+Kész: ./eredmenyek/esxi_20261027_183444/eredmenyek.csv

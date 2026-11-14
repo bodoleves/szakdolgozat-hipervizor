@@ -1,0 +1,10 @@
+== U1: VM létrehozása ==
+[U1] letrehozas_es_lemezimport: 14.7 s  vmkfstools klon a bazislemezbol + bovites + vmx + regisztracio
+[U1] inditas_hasznalhatoig: 19.2 s  VMware Tools fut es IP jelentve: igen (cloud-init csomagtelepites is)
+[U1] osszesen: 34.0 s  
+== U2: Erőforrás-módosítás és visszaállítás ==
+[U2] modositas_2vcpu_4GB: 47.7 s  vendegben: vcpu=2 mem_mb=3927
+[U2] visszaallitas_4vcpu_8GB: 45.0 s  vendegben: vcpu=4 mem_mb=7953
+== U3: Mentés (csendesített pillanatkép + lemezklón) és helyreállítás ==
+[U3] mentes_snapshot_mod: 18.2 s  csendesitett pillanatkep 5.1 s + vmkfstools klon 11.9 s + torles; meret: 2.7G (thin); VM futott kozben
+[U3] visszaallitas_uj_vm: 14.3 s  vmkfstools klon a mentesbol + vmx + regisztracio -> ops-u3-restore
